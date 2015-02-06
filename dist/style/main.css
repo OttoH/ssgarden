@@ -1,0 +1,120 @@
+:root {
+  font-family: "Helvetica neue light", "HelveticaNeueLt Std Thin", Helvetica, Lucida Grande, Arial, sans-serif;
+  font-size: 62.5%;
+}
+a {
+  text-decoration: none;
+}
+.hidden {
+  display: none;
+}
+/*
+When setting the primary font stack, apply it to the Pure grid units along
+with `html`, `button`, `input`, `select`, and `textarea`. Pure Grids use
+specific font stacks to ensure the greatest OS/browser compatibility.
+*/
+html,
+button,
+input,
+select,
+textarea,
+.pure-g [class*="pure-u"] {
+  /* Set your content font stack here: */
+  /*font-family: Georgia, Times, "Times New Roman", serif;*/
+  font-family: "Helvetica neue light", "HelveticaNeueLt Std Thin", Helvetica, Lucida Grande, Arial, sans-serif;
+}
+.pure-menu li a:focus {
+  background: none;
+}
+.head-wrap {
+  display: block;
+  font-size: 1.6rem;
+}
+.head-wrap .header {
+  width: 100%;
+  position: absolute;
+}
+.head-wrap .header .menu {
+  display: block;
+  background-color: rgba(255, 255, 255, 0.9);
+}
+.head-wrap .header .menu .logo {
+  display: inline-block;
+  color: #3d3d3d;
+  background-image: url('../data/main/logo.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 126px;
+  height: 46px;
+  margin: 6px 6px;
+  padding: 0px;
+}
+.head-wrap .header .about-block,
+.head-wrap .header .contact-block {
+  color: #777777;
+  letter-spacing: 1px;
+  line-height: 1.4;
+}
+.head-wrap .header .about-block .about-content,
+.head-wrap .header .contact-block .about-content,
+.head-wrap .header .about-block .contact-content,
+.head-wrap .header .contact-block .contact-content {
+  display: block;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-top: 1px dotted #666666;
+  max-width: 600px;
+  padding: 18px;
+}
+.head-wrap .header .about-block .desc-down,
+.head-wrap .header .contact-block .desc-down {
+  margin: 12px 0;
+}
+.head-wrap .header .about-block a,
+.head-wrap .header .contact-block a {
+  text-decoration: underline;
+  display: inline-block;
+  padding: 0;
+}
+.main-image {
+  margin: 0;
+}
+.sub-images {
+  margin: 12px 0px;
+}
+.sub-images .sub-img-block {
+  margin: 6px 2px;
+  background-color: #f2f2f2;
+}
+.sub-images .sub-img-block .sub-img-title {
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: #3d3d3d;
+  /*border-top: 2px solid @header_title;*/
+  text-align: center;
+  padding: 6px 0;
+}
+.footer {
+  font-size: 1.2rem;
+  color: #3d3d3d;
+  margin: 12px 0 0 0;
+}
+.footer .copyright {
+  padding: 6px 0 0 12px;
+  display: block;
+}
+.footer .footer-items {
+  padding: 6px;
+}
+.footer .footer-items a {
+  white-space: nowrap;
+  border-right: 1px solid #E3E3E3;
+  color: #3d3d3d;
+}
+.footer .footer-items a.no-line {
+  border-right: none;
+}
+.footer .footer-items a span {
+  display: inline-block;
+  padding: 0 6px;
+}

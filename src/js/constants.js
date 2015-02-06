@@ -1,0 +1,4 @@
+module.exports = {
+	OPEN_ABOUT: 'OPEN_ABOUT',
+	OPEN_CONTACT: 'OPEN_CONTACT'
+};
