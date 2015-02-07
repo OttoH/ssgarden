@@ -1,4 +1,6 @@
-var React = require('react');
+var React = require('react'),
+	Router = require("react-router");
+
 var Fluxxor = require('Fluxxor'),
     FluxMixin = Fluxxor.FluxMixin(React),
     StoreWatchMixin = Fluxxor.StoreWatchMixin;
@@ -21,9 +23,9 @@ var App = React.createClass({
 
 	render: function() {
 		var state = this.state;
-
+		
 		return (
-			<div className="app-contain">
+			<div className="app-contain" key={name}>
 				<div className="head-wrap">
 					<Header flux={flux} />
 					<MainImage mainImg={state.mainImage.selectMainImg} />

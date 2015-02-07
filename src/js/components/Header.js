@@ -28,12 +28,12 @@ var Header = React.createClass({
 
 		return (
 			<div className="header">
-				<div className="menu pure-menu pure-menu-open pure-menu-horizontal">
-				<a href="#" className="logo pure-menu-heading"><span className="title"></span></a>
-				<ul>
-					<li><a href="#" className="nav-item" onClick={this.handleAboutClick}><span>{'關於禧樹 about'}</span></a></li>
-					<li><a href="#" className="nav-item" onClick={this.handleContactClick}><span>{'聯絡我們 contact'}</span></a></li>
-				</ul>
+				<div className="menu shadow pure-g">
+					<div className="pure-u-1 pure-u-md-1-6"><a href="#" className="logo"><span className="title"></span></a></div>
+					<div className="pure-u-1 pure-u-md-5-6">
+						<a href="#" className={cns('nav-item', (this.state.headerContent.openAbout) && 'selected')} onClick={this.handleAboutClick}><span>{'關於禧樹 about'}</span></a>
+						<a href="#" className={cns('nav-item', (this.state.headerContent.openContact) && 'selected')} onClick={this.handleContactClick}><span>{'聯絡我們 contact'}</span></a>
+					</div>
 				</div>
 				<div className={cns('about-block', (!this.state.headerContent.openAbout) && 'hidden')}>
 					<div className="about-content">

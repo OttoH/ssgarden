@@ -7,6 +7,12 @@ module.exports = {
 
 	open_contact: function () {
 		this.dispatch(Constants.OPEN_CONTACT);
-	}
+	},
+
+	routes: {
+	    transition: function(path, params) {
+	    	this.dispatch(Constants.ROUTE.TRANSITION, {path: path, params: params});
+	    }
+  	}
   
 };

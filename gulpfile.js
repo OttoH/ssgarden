@@ -15,7 +15,9 @@ gulp.task('browserify', function() {
       .pipe(browserify({transform: 'reactify'}))
       .on('error', handleError)
       .pipe(concat('main.js'))
-      .pipe(gulp.dest('dist/js'));
+      .on('error', handleError)
+      .pipe(gulp.dest('dist/js'))
+      .on('error', handleError);
 });
 
 gulp.task('copy', function() {
@@ -28,6 +30,7 @@ gulp.task('less', function () {
     .pipe(less({
       paths: [ path.join(__dirname, 'src/less/main.less') ]
     }))
+    .on('error', handleError)
     .pipe(gulp.dest('./dist/style'));
 });
 

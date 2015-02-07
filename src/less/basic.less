@@ -1,3 +1,16 @@
+@font_s: 1.2rem;
+@font_n: 1.6rem;
+@font_l: 1.8rem;
+@font_xl: 2.0rem;
+
+@header_title: #3D3D3D;
+@header_content: #777;
+@header_content-bg: #666;
+@sub-img-title-bg: #F2F2F2;
+@footer-bg: #D3CFCE;
+@white: #EFF0EE;
+
+
 :root {
 	font-family: "Helvetica neue light", "HelveticaNeueLt Std Thin", Helvetica, Lucida Grande, Arial, sans-serif;
 	font-size: 62.5%
@@ -28,13 +41,22 @@ html, button, input, select, textarea,
 	background: none;
 }
 
-@font_s: 1.2rem;
-@font_n: 1.6rem;
-@font_l: 1.8rem;
-@font_xl: 2.0rem;
 
-@header_title: #3D3D3D;
-@header_content: #777;
-@header_content-bg: #666;
-@sub-img-title-bg: #F2F2F2;
-@footer-bg: #D3CFCE;
+// page anim
+.page-enter {
+  opacity: 0.01;
+  transition: opacity .8s ease-in;
+}
+
+.page-enter.page-enter-active {
+  opacity: 1;
+}
+
+.page-leave {
+  opacity: 1;
+  transition: opacity .5s ease-in;
+}
+
+.page-leave.page-leave-active {
+  opacity: 0.01;
+}

@@ -1,4 +1,6 @@
-var React = require('react');
+var React = require('react'),
+	Router = require("react-router"),
+    Link = Router.Link;
 
 var SubImage = React.createClass({
 	render: function() {
@@ -22,7 +24,7 @@ var SubImage = React.createClass({
 						<div className="pure-u-1 pure-u-md-1-2 pure-u-lg-1-4" key={'subimg' + I}>
 							<div className="sub-img-block">
 								<div className="sub-img-title">{V.title}</div>
-								<a href="#" className="sub-link"><span className="sub-image" style={style} key={'sub_' + I}></span></a>
+								<Link to={V.link}><div className="sub-link"><span className="sub-image" style={style} key={'sub_' + I}></span></div></Link>
 							</div>
 						</div>
 					);

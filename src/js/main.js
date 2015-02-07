@@ -1,15 +1,22 @@
 var React = require('react'),
+	Router = require("react-router"),
 	Fluxxor = require('fluxxor');
 
 var cons = require('./webData');
+var routes = require("./routes");
 
 var App = require('./components/App'),
 	headerStore = require('./stores/headerStore'),
 	mainImageStore = require('./stores/mainImageStore'),
 	subImageStore = require('./stores/subImageStore'),
+	routeStore = require("./stores/routeStore"),
 	actions = require('./actions/actions');
 
+//router
+var router = Router.create({routes: routes});
+
 var stores = {
+	route: new routeStore({router: router}),
 	headerStore: new headerStore({
 						desc: cons('headerDesc'),
 						contact: cons('headerContact')
@@ -28,4 +35,7 @@ flux.on("dispatch", function(type, payload) {
   }
 });
 
-React.render(<App flux={flux} />, document.getElementById('main'));
+
+router.run(function(Handler) {
+	React.render(<Handler flux={flux} />, document.getElementById('main'));
+});

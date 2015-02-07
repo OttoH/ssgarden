@@ -10,10 +10,10 @@ var webData ={
 		},
 		mainImgs: ['data/main/main1.jpg', 'data/main/main2.jpg', 'data/main/main3.jpg'],
 		subImgs: [
-					{title: '景觀作品', img:'data/main/sub1.jpg'},
-					{title: '工程實績', img: 'data/main/sub4.jpg'},
-					{title: '園藝資材', img: 'data/main/sub2.jpg'}, 
-					{title: '盆栽組合', img: 'data/main/sub3.jpg'} 
+					{title: '景觀作品', img:'data/main/sub1.jpg', link: 'projects'},
+					{title: '工程實績', img: 'data/main/sub4.jpg', link: 'works'},
+					{title: '園藝資材', img: 'data/main/sub2.jpg', link: 'resource'}, 
+					{title: '盆栽組合', img: 'data/main/sub3.jpg', link: 'kits'} 
 				]
 	}
 
