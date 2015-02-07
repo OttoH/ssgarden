@@ -11,7 +11,7 @@ var ProdGrid = React.createClass({
 	],
 
 	render: function() {
-		var ori = ['data/main/_sub1.jpg', 'data/main/_sub2.jpg', 'data/main/_sub3.jpg', 'data/main/_sub4.jpg'];
+		var ori = ['data/main/ssub1.jpg', 'data/main/ssub2.jpg', 'data/main/ssub3.jpg', 'data/main/ssub4.jpg'];
 		var grid = ori.map(function (V, I) {
 		var style = {
 			img: {
