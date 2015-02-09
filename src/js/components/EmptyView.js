@@ -12,7 +12,7 @@ module.exports = React.createClass({
 		console.log(name);
 
 		return (
-				<CSSTransitionGroup component="div" transitionName="moveLeft">
+				<CSSTransitionGroup component="div" transitionName="moveUp">
 					<RouteHandler {...this.props} key={name} />
 				</CSSTransitionGroup>
 		);
