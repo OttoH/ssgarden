@@ -8,7 +8,8 @@ module.exports = React.createClass({
 	mixins: [ Router.State ],
 
 	render: function() {
-		var name = this.getRoutes().reverse()[0].name;
+		var name = this.getRoutes().reverse()[0].name || 'home';
+		console.log(name);
 
 		return (
 				<CSSTransitionGroup component="div" transitionName="moveLeft">

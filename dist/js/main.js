@@ -28788,7 +28788,8 @@ module.exports = React.createClass({displayName: "exports",
 	mixins: [ Router.State ],
 
 	render: function() {
-		var name = this.getRoutes().reverse()[0].name;
+		var name = this.getRoutes().reverse()[0].name || 'home';
+		console.log(name);
 
 		return (
 				React.createElement(CSSTransitionGroup, {component: "div", transitionName: "moveLeft"}, 
@@ -29262,13 +29263,13 @@ var stores = {
 var flux = new Fluxxor.Flux(stores, actions);
 window.flux = flux;
 
-/*
+
 flux.on("dispatch", function(type, payload) {
   if (console && console.log) {
     console.log("[Dispatch]", type, payload);
   }
 });
-*/
+
 
 router.run(function(Handler, P) {
 	React.render(React.createElement(Handler, {flux: flux}), document.getElementById('main'));
