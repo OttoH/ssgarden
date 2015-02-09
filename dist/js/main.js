@@ -28789,12 +28789,17 @@ module.exports = React.createClass({displayName: "exports",
 
 	render: function() {
 		var name = this.getRoutes().reverse()[0].name || 'home';
-		console.log(name);
+		//console.log(this.props.flux);
 
+		/*
 		return (
-				React.createElement(CSSTransitionGroup, {component: "div", transitionName: "moveUp"}, 
-					React.createElement(RouteHandler, React.__spread({},  this.props, {key: name}))
-				)
+				<CSSTransitionGroup component="div" transitionName="moveUp">
+					<RouteHandler {...this.props} key={name} />
+				</CSSTransitionGroup>
+		);
+		*/
+		return (
+				React.createElement(RouteHandler, React.__spread({},  this.props))
 		);
 	}
 });
