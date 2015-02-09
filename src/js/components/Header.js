@@ -14,6 +14,10 @@ var Header = React.createClass({
 	    };
 	},
 
+	componentWillReceiveProps: function(nextProps) {
+	    this.setState(this.getStateFromFlux());
+	  },
+
 	handleAboutClick: function (e) {
 		e.preventDefault();
 		this.getFlux().actions.open_about();

@@ -28791,16 +28791,18 @@ module.exports = React.createClass({displayName: "exports",
 		var name = this.getRoutes().reverse()[0].name || 'home';
 		//console.log(this.props.flux);
 
+		
+		return (
+				React.createElement(CSSTransitionGroup, {component: "div", transitionName: "moveUp"}, 
+					React.createElement(RouteHandler, React.__spread({},  this.props, {key: name}))
+				)
+		);
+		
 		/*
 		return (
-				<CSSTransitionGroup component="div" transitionName="moveUp">
-					<RouteHandler {...this.props} key={name} />
-				</CSSTransitionGroup>
+				<RouteHandler {...this.props} />
 		);
-		*/
-		return (
-				React.createElement(RouteHandler, React.__spread({},  this.props))
-		);
+*/
 	}
 });
 },{"react-router":138,"react/addons":172}],337:[function(require,module,exports){
@@ -28837,6 +28839,10 @@ var Header = React.createClass({displayName: "Header",
 	    	headerContent: flux.store('headerStore').getState()
 	    };
 	},
+
+	componentWillReceiveProps: function(nextProps) {
+	    this.setState(this.getStateFromFlux());
+	  },
 
 	handleAboutClick: function (e) {
 		e.preventDefault();
