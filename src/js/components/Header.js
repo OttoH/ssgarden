@@ -41,7 +41,7 @@ var Header = React.createClass({
 				</div>
 				<div className={cns('about-block', (!this.state.headerContent.openAbout) && 'hidden')}>
 					<div className="about-content">
-						<div className="desc-up">{this.state.headerContent.descUp}</div>
+						<div className="desc-up"><span dangerouslySetInnerHTML={{__html: this.state.headerContent.descUp}} /></div>
 						<div className="desc-down">{this.state.headerContent.descDown}</div>
 					</div>
 				</div>
