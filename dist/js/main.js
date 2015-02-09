@@ -28792,7 +28792,7 @@ module.exports = React.createClass({displayName: "exports",
 		console.log(name);
 
 		return (
-				React.createElement(CSSTransitionGroup, {component: "div", transitionName: "moveLeft"}, 
+				React.createElement(CSSTransitionGroup, {component: "div", transitionName: "moveUp"}, 
 					React.createElement(RouteHandler, React.__spread({},  this.props, {key: name}))
 				)
 		);
