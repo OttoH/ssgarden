@@ -14,7 +14,21 @@ var webData ={
 					{title: '工程實績', img: 'data/main/sub4.jpg', link: 'works'},
 					{title: '園藝資材', img: 'data/main/sub2.jpg', link: 'resource'}, 
 					{title: '盆栽組合', img: 'data/main/sub3.jpg', link: 'kits'} 
-				]
+				],
+		workList: {
+			'planning': [
+				'文心南五路 柯公館景觀規劃案',
+				'景賢北街王小姐住宅景觀規劃案',
+				'新竹湖濱天尊住宅景觀規劃案(活設計)'
+			],
+			'2012': [
+				'日船企業赤鬼牛排工業區五路新廠景觀規劃施工案',
+				'昌平四街 林公館&廖公館景觀工程設計案'
+			],
+			'2011': [
+				'新竹佳益湖濱天尊 A35別墅景觀設計案(活設計)'
+			]
+		}
 	}
 
 module.exports = function (key) {

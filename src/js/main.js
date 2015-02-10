@@ -9,6 +9,7 @@ var App = require('./components/App'),
 	headerStore = require('./stores/headerStore'),
 	mainImageStore = require('./stores/mainImageStore'),
 	subImageStore = require('./stores/subImageStore'),
+	workListStore = require('./stores/workListStore'),
 	routeStore = require("./stores/routeStore"),
 	actions = require('./actions/actions');
 
@@ -22,7 +23,8 @@ var stores = {
 						contact: cons('headerContact')
 						}),
   	mainImageStore: new mainImageStore({imgs: cons('mainImgs')}),
-  	subImageStore: new subImageStore({imgs: cons('subImgs')})
+  	subImageStore: new subImageStore({imgs: cons('subImgs')}),
+  	workListStore: new workListStore({currentWork: 'planning', workList: cons('workList')})
 };
 
 var flux = new Fluxxor.Flux(stores, actions);

@@ -8,6 +8,9 @@ a {
 .hidden {
   display: none;
 }
+.height-hidden {
+  max-height: 0;
+}
 /*
 When setting the primary font stack, apply it to the Pure grid units along
 with `html`, `button`, `input`, `select`, and `textarea`. Pure Grids use
@@ -210,20 +213,17 @@ textarea,
   -moz-transform: rotate(-45deg);
   -o-transform: rotate(-45deg);
 }
-.head-wrap .header .about-block,
-.head-wrap .header .contact-block {
-  color: #777777;
-  letter-spacing: 1px;
-  line-height: 1.4;
-}
 .head-wrap .header .about-block .about-content,
 .head-wrap .header .contact-block .about-content,
 .head-wrap .header .about-block .contact-content,
 .head-wrap .header .contact-block .contact-content {
   display: block;
   background-color: rgba(232, 234, 236, 0.8);
-  max-width: 600px;
+  /*max-width: 600px;*/
   padding: 18px;
+  color: #777777;
+  letter-spacing: 1px;
+  line-height: 1.4;
 }
 .head-wrap .header .about-block .desc-down,
 .head-wrap .header .contact-block .desc-down {

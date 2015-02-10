@@ -28725,6 +28725,10 @@ module.exports = {
 		this.dispatch(Constants.OPEN_CONTACT);
 	},
 
+	setCurrentWork: function (year) {
+		this.dispatch(Constants.SET_CURRENT_WORK, {year: year});
+	},
+
 	routes: {
 	    transition: function(path, params) {
 	    	this.dispatch(Constants.ROUTE.TRANSITION, {path: path, params: params});
@@ -28778,11 +28782,11 @@ var App = React.createClass({displayName: "App",
 
 module.exports = App;
 },{"./Footer":337,"./Header":338,"./MainImage":341,"./SubImage":345,"Fluxxor":1,"react":333,"react-router":138}],336:[function(require,module,exports){
-var React = require("react/addons"),
-    Router = require("react-router"),
-    RouteHandler = Router.RouteHandler;
+var React = require("react/addons");
+var Router = require("react-router");
+var RouteHandler = Router.RouteHandler;
 
-var CSSTransitionGroup = React.addons.CSSTransitionGroup;
+//var CSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 module.exports = React.createClass({displayName: "exports",
 	mixins: [ Router.State ],
@@ -28791,18 +28795,18 @@ module.exports = React.createClass({displayName: "exports",
 		var name = this.getRoutes().reverse()[0].name || 'home';
 		//console.log(this.props.flux);
 
-		
-		return (
-				React.createElement(CSSTransitionGroup, {component: "div", transitionName: "moveUp"}, 
-					React.createElement(RouteHandler, React.__spread({},  this.props, {key: name}))
-				)
-		);
-		
 		/*
 		return (
-				<RouteHandler {...this.props} />
+				<CSSTransitionGroup component="div" transitionName="moveUp">
+					<RouteHandler {...this.props} key={name} />
+				</CSSTransitionGroup>
 		);
-*/
+		*/
+		
+		return (
+				React.createElement(RouteHandler, React.__spread({},  this.props))
+		);
+
 	}
 });
 },{"react-router":138,"react/addons":172}],337:[function(require,module,exports){
@@ -28867,7 +28871,7 @@ var Header = React.createClass({displayName: "Header",
 				), 
 				React.createElement("div", {className: cns('about-block', (!this.state.headerContent.openAbout) && 'hidden')}, 
 					React.createElement("div", {className: "about-content"}, 
-						React.createElement("div", {className: "desc-up"}, this.state.headerContent.descUp), 
+						React.createElement("div", {className: "desc-up"}, React.createElement("span", {dangerouslySetInnerHTML: {__html: this.state.headerContent.descUp}})), 
 						React.createElement("div", {className: "desc-down"}, this.state.headerContent.descDown)
 					)
 				), 
@@ -29155,18 +29159,29 @@ module.exports = SubImage;
 var React = require('react'),
 	Router = require("react-router"),
 	State = Router.State;
-var Fluxxor = require('Fluxxor'),
-    FluxMixin = Fluxxor.FluxMixin(React);
+
+var Fluxxor = require('Fluxxor');
+var FluxMixin = Fluxxor.FluxMixin(React);
+var StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
 var ItemHeader = require('./ItemHeader');
 var WorkList = require('./WorkList');
 var Footer = require('./Footer');
 
 var ItemApp = React.createClass({displayName: "ItemApp",
-	mixins: [FluxMixin, State],
+	mixins: [FluxMixin, State, StoreWatchMixin('workListStore')],
 
 	getStateFromFlux: function() {
 	    var flux = this.getFlux();
+
+	    return {
+	    	selectYears: flux.store('workListStore').getSelectYears(),
+	    	currentList: flux.store('workListStore').getCurrentWork()
+	    };
+	},
+
+	handleCurrent: function (year) {
+		this.getFlux().actions.setCurrentWork(year);
 	},
 
 	render: function() {
@@ -29176,7 +29191,10 @@ var ItemApp = React.createClass({displayName: "ItemApp",
 			React.createElement("div", {className: "app-contain"}, 
 				React.createElement("div", {className: "head-wrap"}, 
 					React.createElement(ItemHeader, {title: "工程實績"}), 
-					React.createElement(WorkList, null), 
+					React.createElement(WorkList, {
+						handleCurrent: this.handleCurrent, 
+						selectYears: this.state.selectYears, 
+						workList: this.state.currentList}), 
 					React.createElement(Footer, null)
 				)
 			)
@@ -29187,29 +29205,27 @@ var ItemApp = React.createClass({displayName: "ItemApp",
 module.exports = ItemApp;
 },{"./Footer":337,"./ItemHeader":339,"./WorkList":347,"Fluxxor":1,"react":333,"react-router":138}],347:[function(require,module,exports){
 var React = require('react'),
-	Router = require("react-router"),
-	State = Router.State,
-    Link = Router.Link;
+	Router = require("react-router");
 
 var cns = require('../lib/className');
 
 var WorkList = React.createClass({displayName: "WorkList",
-	mixins: [
-	    State
-	],
-
+	handleClick: function (year) {
+		this.props.handleCurrent(year)
+	},
+	
 	render: function() {
-		var ori = [
-			{mon: 'July', work: '日船企業赤鬼牛排工業區五路新廠景觀規劃施工案、昌平四街 林公館&廖公館景觀工程設計案、鄉林帝堡 游公館住宅景觀設計施工案、詮佳臻寶A9+A10住宅景觀設計施工案(天坊設計)、帝闊 張公館 景觀修改工程、德之院 陳小姐 住宅景觀設計施工案'},
-			{mon: 'Aug', work: '中港皇家建設 皇家皇品樣品屋景觀施工案、鄉林帝堡 游公館住宅景觀設計施工案、詮佳臻寶A9+A10住宅景觀設計施工案(天坊設計)、日船企業赤鬼牛排工業區五路新廠景觀規劃施工案'},
-			{mon: 'Sep', work:'鄉林帝堡 游公館住宅景觀設計施工案、詮佳臻寶A9+A10住宅景觀設計施工案(天坊設計)、苗栗 鯉魚潭休閒會館景觀規畫施工案、永春東三路劉公館景觀修改工程(含奕設計)、河北西街呂小姐景觀設計施工案、昌平四街林公館景觀規劃施工案、宜欣三街張小姐景觀規劃施工案'}
-		 ];
-		var list = ori.map(function (V, I) {
+		var selectYears = this.props.selectYears.reverse().map(function (V, I) {
+			var year = (V === 'planning') ? '規劃中' : (V + '年');
+			return React.createElement("li", {key: 'selectYears' + I}, React.createElement("div", {onClick: this.handleClick.bind(this, V)}, year));
+		}.bind(this)); 
+		 
+		var list = this.props.workList.map(function (V, I) {
 
 			return (
 				React.createElement("div", {className: "pure-u-1", key: 'worklist' + I.toString()}, 
 					React.createElement("div", {className: "workterm"}, 
-						React.createElement("span", {className: "date"}, V.mon + ':'), React.createElement("span", {className: "term"}, V.work)
+						React.createElement("span", {className: "term"}, V)
 					)
 				)
 			);
@@ -29219,11 +29235,7 @@ var WorkList = React.createClass({displayName: "WorkList",
 			React.createElement("div", {className: "worklist"}, 
 				React.createElement("div", {className: "selector"}, 
 					React.createElement("ul", null, 
-						React.createElement("li", null, React.createElement("a", {href: "#"}, "規劃中")), 
-						React.createElement("li", null, React.createElement("a", {href: "#"}, "2012")), 
-						React.createElement("li", null, React.createElement("a", {href: "#"}, "2011")), 
-						React.createElement("li", null, React.createElement("a", {href: "#"}, "2010")), 
-						React.createElement("li", null, React.createElement("a", {href: "#"}, "2009"))
+						selectYears
 					)
 				), 
 				React.createElement("div", {className: "list pure-g"}, 
@@ -29239,6 +29251,7 @@ module.exports = WorkList;
 module.exports = {
 	OPEN_ABOUT: 'OPEN_ABOUT',
 	OPEN_CONTACT: 'OPEN_CONTACT',
+	SET_CURRENT_WORK: 'SET_CURRENT_WORK',
 	ROUTE: {
     	TRANSITION: "ROUTE:TRANSITION"
   	}
@@ -29255,6 +29268,7 @@ var App = require('./components/App'),
 	headerStore = require('./stores/headerStore'),
 	mainImageStore = require('./stores/mainImageStore'),
 	subImageStore = require('./stores/subImageStore'),
+	workListStore = require('./stores/workListStore'),
 	routeStore = require("./stores/routeStore"),
 	actions = require('./actions/actions');
 
@@ -29268,7 +29282,8 @@ var stores = {
 						contact: cons('headerContact')
 						}),
   	mainImageStore: new mainImageStore({imgs: cons('mainImgs')}),
-  	subImageStore: new subImageStore({imgs: cons('subImgs')})
+  	subImageStore: new subImageStore({imgs: cons('subImgs')}),
+  	workListStore: new workListStore({currentWork: 'planning', workList: cons('workList')})
 };
 
 var flux = new Fluxxor.Flux(stores, actions);
@@ -29285,7 +29300,7 @@ flux.on("dispatch", function(type, payload) {
 router.run(function(Handler, P) {
 	React.render(React.createElement(Handler, {flux: flux}), document.getElementById('main'));
 });
-},{"./actions/actions":334,"./components/App":335,"./routes":351,"./stores/headerStore":352,"./stores/mainImageStore":353,"./stores/routeStore":354,"./stores/subImageStore":355,"./webData":356,"fluxxor":63,"react":333,"react-router":138}],350:[function(require,module,exports){
+},{"./actions/actions":334,"./components/App":335,"./routes":351,"./stores/headerStore":352,"./stores/mainImageStore":353,"./stores/routeStore":354,"./stores/subImageStore":355,"./stores/workListStore":356,"./webData":357,"fluxxor":63,"react":333,"react-router":138}],350:[function(require,module,exports){
 module.exports = function () {
 	var res = [];
 	var I, L;
@@ -29446,6 +29461,42 @@ var subImageStore = Fluxxor.createStore({
 
 module.exports = subImageStore;
 },{"../constants":348,"fluxxor":63}],356:[function(require,module,exports){
+var Fluxxor = require('fluxxor'),
+    Constants = require('../constants');
+
+var workListStore = Fluxxor.createStore({
+	initialize: function(opt) {
+		this.currentWork = opt.currentWork;
+		this.workList = opt.workList;
+
+		this.bindActions(Constants.SET_CURRENT_WORK, this.setCurrentWork);
+
+	},
+
+	setCurrentWork: function (payload) {
+		if (payload) {
+			this.currentWork = payload.year;
+			this.emit("change");
+		}
+	},
+
+	getSelectYears: function () {
+		var years = [];
+
+		for (K in this.workList) {
+			years.push(K);
+		}
+
+		return years;
+	},
+
+	getCurrentWork: function () {
+		return this.workList[this.currentWork] || [];
+	}
+});
+
+module.exports = workListStore;
+},{"../constants":348,"fluxxor":63}],357:[function(require,module,exports){
 var webData ={
 		headerDesc: ['禧樹景觀設計旗艦店，為服務廣大的客戶，已於2007年7月，於台中市環中路一段，擴大營業。禧樹經營團隊堅持以”認真、用心、負責”的態度來完成每一件工程，承接的專案中，從整體規劃、設計到施工，皆由專業團隊執行。以獨有風格、藝術創作與不同元素的結合，呈現出有質地的自然之美。在禧樹巧思創作下，拉近了人們與藝術間的距離，景觀設計，不論其空間大小，皆可表現出精緻的園藝景觀，提升心靈饗宴。', '禧樹的營業項目有：庭院、空中花園、住家陽台、庭園造景，住家露台、餐廳、景觀設計施工，進口花器、大型組合盆栽、花草賣場、室內盆栽、開幕送禮室內盆栽、陽台景觀設計施工、景觀石材等等。'],
 		headerContact: {
@@ -29462,7 +29513,21 @@ var webData ={
 					{title: '工程實績', img: 'data/main/sub4.jpg', link: 'works'},
 					{title: '園藝資材', img: 'data/main/sub2.jpg', link: 'resource'}, 
 					{title: '盆栽組合', img: 'data/main/sub3.jpg', link: 'kits'} 
-				]
+				],
+		workList: {
+			'planning': [
+				'文心南五路 柯公館景觀規劃案',
+				'景賢北街王小姐住宅景觀規劃案',
+				'新竹湖濱天尊住宅景觀規劃案(活設計)'
+			],
+			'2012': [
+				'日船企業赤鬼牛排工業區五路新廠景觀規劃施工案',
+				'昌平四街 林公館&廖公館景觀工程設計案'
+			],
+			'2011': [
+				'新竹佳益湖濱天尊 A35別墅景觀設計案(活設計)'
+			]
+		}
 	}
 
 module.exports = function (key) {
