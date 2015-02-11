@@ -4,7 +4,7 @@ var React = require("react"),
     DefaultRoute = Router.DefaultRoute;
 
 var App = require('./components/App');
-var ProdApp = require('./components/ProdApp');
+var ProjectApp = require('./components/ProjectApp');
 var WorkApp = require('./components/WorkApp');
 var ResApp = require('./components/ResApp');
 var KitApp = require('./components/KitApp');
@@ -13,7 +13,7 @@ var EmptyView = require("./components/EmptyView");
 
 var routes = (
 	<Route handler={EmptyView} name="home" path="/">
-		<Route handler={ProdApp} name="projects" path="/projects" />
+		<Route handler={ProjectApp} name="projects" path="/projects" />
 		<Route handler={WorkApp} name="works" path="/works" />
 		<Route handler={ResApp} name="resource" path="/resource" />
 		<Route handler={KitApp} name="kits" path="/kits" />

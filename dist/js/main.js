@@ -28786,7 +28786,7 @@ var React = require("react/addons");
 var Router = require("react-router");
 var RouteHandler = Router.RouteHandler;
 
-//var CSSTransitionGroup = React.addons.CSSTransitionGroup;
+var CSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 module.exports = React.createClass({displayName: "exports",
 	mixins: [ Router.State ],
@@ -28795,17 +28795,18 @@ module.exports = React.createClass({displayName: "exports",
 		var name = this.getRoutes().reverse()[0].name || 'home';
 		//console.log(this.props.flux);
 
-		/*
-		return (
-				<CSSTransitionGroup component="div" transitionName="moveUp">
-					<RouteHandler {...this.props} key={name} />
-				</CSSTransitionGroup>
-		);
-		*/
 		
 		return (
-				React.createElement(RouteHandler, React.__spread({},  this.props))
+				React.createElement(CSSTransitionGroup, {component: "div", transitionName: "moveUp"}, 
+					React.createElement(RouteHandler, React.__spread({},  this.props, {key: name}))
+				)
 		);
+		
+		/*
+		return (
+				<RouteHandler {...this.props} />
+		);
+		*/
 
 	}
 });
@@ -28998,10 +28999,10 @@ var Fluxxor = require('Fluxxor'),
     FluxMixin = Fluxxor.FluxMixin(React);
 
 var ItemHeader = require('./ItemHeader');
-var ProdGrid = require('./ProdGrid');
+var ProjectGrid = require('./ProjectGrid');
 var Footer = require('./Footer');
 
-var ItemApp = React.createClass({displayName: "ItemApp",
+var ProjectApp = React.createClass({displayName: "ProjectApp",
 	mixins: [FluxMixin, State],
 
 	getStateFromFlux: function() {
@@ -29015,7 +29016,7 @@ var ItemApp = React.createClass({displayName: "ItemApp",
 			React.createElement("div", {className: "app-contain"}, 
 				React.createElement("div", {className: "head-wrap"}, 
 					React.createElement(ItemHeader, {title: "景觀作品"}), 
-					React.createElement(ProdGrid, null), 
+					React.createElement(ProjectGrid, null), 
 					React.createElement(Footer, null)
 				)
 			)
@@ -29023,8 +29024,8 @@ var ItemApp = React.createClass({displayName: "ItemApp",
 	}
 });
 
-module.exports = ItemApp;
-},{"./Footer":337,"./ItemHeader":339,"./ProdGrid":343,"Fluxxor":1,"react":333,"react-router":138}],343:[function(require,module,exports){
+module.exports = ProjectApp;
+},{"./Footer":337,"./ItemHeader":339,"./ProjectGrid":343,"Fluxxor":1,"react":333,"react-router":138}],343:[function(require,module,exports){
 var React = require('react'),
 	Router = require("react-router"),
 	State = Router.State,
@@ -29210,6 +29211,7 @@ var React = require('react'),
 var cns = require('../lib/className');
 
 var WorkList = React.createClass({displayName: "WorkList",
+
 	handleClick: function (year) {
 		this.props.handleCurrent(year)
 	},
@@ -29217,11 +29219,11 @@ var WorkList = React.createClass({displayName: "WorkList",
 	render: function() {
 		var selectYears = this.props.selectYears.reverse().map(function (V, I) {
 			var year = (V === 'planning') ? '規劃中' : (V + '年');
+			
 			return React.createElement("li", {key: 'selectYears' + I}, React.createElement("div", {onClick: this.handleClick.bind(this, V)}, year));
 		}.bind(this)); 
 		 
 		var list = this.props.workList.map(function (V, I) {
-
 			return (
 				React.createElement("div", {className: "pure-u-1", key: 'worklist' + I.toString()}, 
 					React.createElement("div", {className: "workterm"}, 
@@ -29319,7 +29321,7 @@ var React = require("react"),
     DefaultRoute = Router.DefaultRoute;
 
 var App = require('./components/App');
-var ProdApp = require('./components/ProdApp');
+var ProjectApp = require('./components/ProjectApp');
 var WorkApp = require('./components/WorkApp');
 var ResApp = require('./components/ResApp');
 var KitApp = require('./components/KitApp');
@@ -29328,7 +29330,7 @@ var EmptyView = require("./components/EmptyView");
 
 var routes = (
 	React.createElement(Route, {handler: EmptyView, name: "home", path: "/"}, 
-		React.createElement(Route, {handler: ProdApp, name: "projects", path: "/projects"}), 
+		React.createElement(Route, {handler: ProjectApp, name: "projects", path: "/projects"}), 
 		React.createElement(Route, {handler: WorkApp, name: "works", path: "/works"}), 
 		React.createElement(Route, {handler: ResApp, name: "resource", path: "/resource"}), 
 		React.createElement(Route, {handler: KitApp, name: "kits", path: "/kits"}), 
@@ -29338,7 +29340,7 @@ var routes = (
 );
 
 module.exports = routes;
-},{"./components/App":335,"./components/EmptyView":336,"./components/KitApp":340,"./components/ProdApp":342,"./components/ResApp":344,"./components/WorkApp":346,"react":333,"react-router":138}],352:[function(require,module,exports){
+},{"./components/App":335,"./components/EmptyView":336,"./components/KitApp":340,"./components/ProjectApp":342,"./components/ResApp":344,"./components/WorkApp":346,"react":333,"react-router":138}],352:[function(require,module,exports){
 var Fluxxor = require('fluxxor'),
     Constants = require('../constants');
 

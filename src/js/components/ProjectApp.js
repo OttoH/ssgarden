@@ -5,10 +5,10 @@ var Fluxxor = require('Fluxxor'),
     FluxMixin = Fluxxor.FluxMixin(React);
 
 var ItemHeader = require('./ItemHeader');
-var ProdGrid = require('./ProdGrid');
+var ProjectGrid = require('./ProjectGrid');
 var Footer = require('./Footer');
 
-var ItemApp = React.createClass({
+var ProjectApp = React.createClass({
 	mixins: [FluxMixin, State],
 
 	getStateFromFlux: function() {
@@ -22,7 +22,7 @@ var ItemApp = React.createClass({
 			<div className="app-contain">
 				<div className="head-wrap">
 					<ItemHeader title="景觀作品" />
-					<ProdGrid />
+					<ProjectGrid />
 					<Footer />
 				</div>
 			</div>
@@ -30,4 +30,4 @@ var ItemApp = React.createClass({
 	}
 });
 
-module.exports = ItemApp;
+module.exports = ProjectApp;
