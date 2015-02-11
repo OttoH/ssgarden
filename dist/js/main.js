@@ -28807,7 +28807,6 @@ module.exports = React.createClass({displayName: "exports",
 				<RouteHandler {...this.props} />
 		);
 		*/
-
 	}
 });
 },{"react-router":138,"react/addons":172}],337:[function(require,module,exports){
@@ -29254,6 +29253,7 @@ module.exports = {
 	OPEN_ABOUT: 'OPEN_ABOUT',
 	OPEN_CONTACT: 'OPEN_CONTACT',
 	SET_CURRENT_WORK: 'SET_CURRENT_WORK',
+	SET_PROJECTS: 'SET_PROJECTS',
 	ROUTE: {
     	TRANSITION: "ROUTE:TRANSITION"
   	}
@@ -29330,7 +29330,9 @@ var EmptyView = require("./components/EmptyView");
 
 var routes = (
 	React.createElement(Route, {handler: EmptyView, name: "home", path: "/"}, 
-		React.createElement(Route, {handler: ProjectApp, name: "projects", path: "/projects"}), 
+		React.createElement(Route, {handler: EmptyView, path: "/projects"}, 
+			React.createElement(Route, {handler: ProjectApp, name: "projects"})
+		), 
 		React.createElement(Route, {handler: WorkApp, name: "works", path: "/works"}), 
 		React.createElement(Route, {handler: ResApp, name: "resource", path: "/resource"}), 
 		React.createElement(Route, {handler: KitApp, name: "kits", path: "/kits"}), 
