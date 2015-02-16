@@ -31,7 +31,7 @@ var App = React.createClass({
 					<MainImage mainImg={state.mainImage.selectMainImg} />
 				</div>
 				<div className="sub-wrap">
-					<SubImage subImages={state.subImages.subImgs} />
+					<SubImage flux={flux} subImages={state.subImages.subImgs} />
 				</div>
 				<div className="footer-wrap">
 					<Footer />

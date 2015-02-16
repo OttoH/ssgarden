@@ -1,10 +1,39 @@
 var React = require('react'),
 	Router = require("react-router"),
+	Navigation = Router.Navigation,
     Link = Router.Link;
 
-var SubImage = React.createClass({
-	render: function() {
+var Fluxxor = require('Fluxxor'),
+    FluxMixin = Fluxxor.FluxMixin(React);
 
+var $ = require('jquery');
+var Request = require('request');
+
+var SubImage = React.createClass({
+
+	mixins: [
+		FluxMixin,
+		Navigation
+	],
+
+	handleSubImage: function (e) {
+		e.preventDefault();
+
+		var link = e.currentTarget.getAttribute('href') || '#';
+
+		console.log(link);
+
+		if (link !== '#') {
+			this.getFlux().actions.getSubFromFlickr(link);
+
+			this.transitionTo(link, {});
+		}
+		
+
+	},
+
+	render: function() {
+		
 		var props = this.props;
 		// var style = {};
 		var content = [];
@@ -24,11 +53,11 @@ var SubImage = React.createClass({
 						<div className="pure-u-1 pure-u-md-1-2 pure-u-lg-1-4" key={'subimg' + I}>
 							<div className="sub-img-block">
 								<div className="sub-img-title">{V.title}</div>
-								<Link to={V.link}><div className="sub-link"><span className="sub-image" style={style} key={'sub_' + I}></span></div></Link>
+								<a href={V.link} onClick={this.handleSubImage}><div className="sub-link"><span className="sub-image" style={style} key={'sub_' + I}></span></div></a>
 							</div>
 						</div>
 					);
-			});
+			}.bind(this));
 		}
 
 		return (

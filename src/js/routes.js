@@ -13,9 +13,7 @@ var EmptyView = require("./components/EmptyView");
 
 var routes = (
 	<Route handler={EmptyView} name="home" path="/">
-		<Route handler={EmptyView} path="/projects">
-			<Route handler={ProjectApp} name="projects" />
-		</Route>
+		<Route handler={ProjectApp} name="projects" path="/projects" />
 		<Route handler={WorkApp} name="works" path="/works" />
 		<Route handler={ResApp} name="resource" path="/resource" />
 		<Route handler={KitApp} name="kits" path="/kits" />

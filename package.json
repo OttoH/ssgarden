@@ -22,6 +22,6 @@
         "react-router": "^0.11.6",
         "fluxxor": "^1.5.1",
         "reactify": "^0.17.1",
-        "request": "^2.53.0"
+        "jquery": "*"
     }
 }
