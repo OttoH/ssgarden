@@ -71314,6 +71314,7 @@ var ProdGrid = React.createClass({displayName: "ProdGrid",
 	getInitialState: function() {
 	    return {
 				whichImage: 'data/main/404.png',
+				showThumbImage: true,
 				showOriginImage: false
 			};
 	},
@@ -71325,6 +71326,7 @@ var ProdGrid = React.createClass({displayName: "ProdGrid",
 		if (link !== '#') {
 			this.setState({
 				whichImage: link,
+				showThumbImage: false,
 				showOriginImage: true
 			});
 		}
@@ -71335,18 +71337,16 @@ var ProdGrid = React.createClass({displayName: "ProdGrid",
 
 		this.setState({
 				whichImage: '',
+				showThumbImage: true,
 				showOriginImage: false
 			});
 	},
 
 	render: function() {
-		//var ori = ['data/main/ssub1.jpg', 'data/main/ssub2.jpg', 'data/main/ssub3.jpg', 'data/main/ssub4.jpg'];
 		var imgURL_z = 'data/main/404.png';
 
 		var grid = this.props.projects.map(function (V, I) {
-		//var grid = ori.map(function (V, I) {
 			var imgURL = 'https://farm' + V.farm + '.staticflickr.com/' + V.server + '/' + V.id + '_' + V.secret + '_m.jpg';
-			imgURL_z = 'https://farm' + V.farm + '.staticflickr.com/' + V.server + '/' + V.id + '_' + V.secret + '_z.jpg';
 			// var pageURL = 'https://www.flickr.com/photos/' + flickr.userId + '/' + V.id;
 			var style = {
 				img: {
@@ -71359,7 +71359,10 @@ var ProdGrid = React.createClass({displayName: "ProdGrid",
 					display: 'block'
 				}
 			};
+
+			imgURL_z = 'https://farm' + V.farm + '.staticflickr.com/' + V.server + '/' + V.id + '_' + V.secret + '_z.jpg';
 			//console.log(imgURL);
+
 			return (
 				React.createElement("div", {className: "pure-u-1-2 pure-u-sm-1-4 pure-u-lg-1-8", key: 'prdgrid' + I.toString()}, 
 					React.createElement("a", {href: imgURL_z, className: "grid", onClick: this.handleClickImage}, React.createElement("span", {style: style.img}, React.createElement("p", {className: "desc"}, V.title)))
@@ -71368,14 +71371,18 @@ var ProdGrid = React.createClass({displayName: "ProdGrid",
 		}.bind(this));
 		
 		return (
-			React.createElement("div", {className: "product pure-g"}, 
+			React.createElement("div", {className: "product"}, 
 				React.createElement("div", {className: cns('showOriginImage', this.state.showOriginImage && 'show'), style: {
 					backgroundImage: 'url(' + this.state.whichImage + ')',
 					backgroundRepeat: 'no-repeat',
 					backgroundPosition: 'center',
 					backgroundSize: 'contain',
-				}}, React.createElement("a", {href: "#", className: "close", onClick: this.handelCloseImage}, "close[x]")), 
-				grid
+				}}, 
+					React.createElement("a", {href: "#", className: "close", onClick: this.handelCloseImage}, "CLOSE [X]")
+				), 
+				React.createElement("div", {className: cns('pure-g', (!this.state.showThumbImage) && 'hidden')}, 
+					grid
+				)
 			)
 		);
 	}

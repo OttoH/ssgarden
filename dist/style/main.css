@@ -328,17 +328,19 @@ textarea,
 			*/
 }
 .product .showOriginImage .close {
-  display: inline-block;
-  background: rgba(232, 234, 236, 0.6);
+  display: block;
+  background: rgba(232, 234, 236, 0.4);
   position: absolute;
+  width: 100%;
   top: 0px;
   right: 0px;
-  padding: 12px;
+  padding: 12px 0;
   font-size: 1.6rem;
   font-weight: lighter;
   color: #3d3d3d;
   letter-spacing: 0em;
-  border-bottom: 1px solid #3d3d3d;
+  text-align: center;
+  /*border-bottom: 1px solid @header_title;*/
 }
 .product .grid {
   position: relative;
