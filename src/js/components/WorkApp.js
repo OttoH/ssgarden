@@ -1,29 +1,32 @@
-var React = require('react'),
-	Router = require("react-router"),
-	State = Router.State;
+var React = require('react');
 
 var Fluxxor = require('Fluxxor');
 var FluxMixin = Fluxxor.FluxMixin(React);
 var StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
 var ItemHeader = require('./ItemHeader');
-var WorkList = require('./WorkList');
+var ProjectGrid = require('./ProjectGrid');
 var Footer = require('./Footer');
 
 var ItemApp = React.createClass({
-	mixins: [FluxMixin, State, StoreWatchMixin('workListStore')],
+	mixins: [FluxMixin, StoreWatchMixin('subImageStore')],
 
 	getStateFromFlux: function() {
 	    var flux = this.getFlux();
+	    var pContent = flux.store('subImageStore').getProjectContent('works') || [];
 
-	    return {
-	    	selectYears: flux.store('workListStore').getSelectYears(),
-	    	currentList: flux.store('workListStore').getCurrentWork()
-	    };
+	    if (pContent.length) {
+	    	return {
+		    	projects: pContent
+		    };
+	    } else {
+	    	flux.actions.getSubFromFlickr('works');
+	    	return {projects: []};
+	    }  
 	},
 
-	handleCurrent: function (year) {
-		this.getFlux().actions.setCurrentWork(year);
+	handleFilter: function (year) {
+		
 	},
 
 	render: function() {
@@ -33,10 +36,14 @@ var ItemApp = React.createClass({
 			<div className="app-contain">
 				<div className="head-wrap">
 					<ItemHeader title="工程實績" />
-					<WorkList 
-						handleCurrent={this.handleCurrent} 
-						selectYears={this.state.selectYears} 
-						workList={this.state.currentList} />
+					<div className="selector">
+						<ul>
+							<li>2012</li>
+							<li>2011</li>
+							<li>2010</li>
+						</ul>
+					</div>
+					<ProjectGrid projects={this.state.projects} />
 					<Footer />
 				</div>
 			</div>

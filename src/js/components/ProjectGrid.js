@@ -1,49 +1,79 @@
-var React = require('react'),
-	Router = require("react-router"),
-	State = Router.State,
-    Link = Router.Link;
+var React = require('react');
 
 var cns = require('../lib/className');
+var flickr = require('../webData')('flickr');
 
 var ProdGrid = React.createClass({
-	mixins: [
-	    State
-	],
+	getInitialState: function() {
+	    return {
+				whichImage: 'data/main/404.png',
+				showThumbImage: true,
+				showOriginImage: false
+			};
+	},
+
+	handleClickImage: function (e) {
+		e.preventDefault();
+		var link = e.currentTarget.getAttribute('href') || '#';
+		
+		if (link !== '#') {
+			this.setState({
+				whichImage: link,
+				showThumbImage: false,
+				showOriginImage: true
+			});
+		}
+	},
+
+	handelCloseImage: function (e) {
+		e.preventDefault();
+
+		this.setState({
+				whichImage: '',
+				showThumbImage: true,
+				showOriginImage: false
+			});
+	},
 
 	render: function() {
-		var ori = ['data/main/ssub1.jpg', 'data/main/ssub2.jpg', 'data/main/ssub3.jpg', 'data/main/ssub4.jpg'];
-		var grid = ori.map(function (V, I) {
-		var style = {
-			img: {
-				background: 'url(' + (V || '') + ')',
-				backgroundRepeat: 'no-repeat',
-				backgroundPosition: 'center',
-				backgroundSize: 'cover',
-				width: '100%',
-				height: 180,
-				display: 'block'
-			}
-		};
+		var imgURL_z = 'data/main/404.png';
+
+		var grid = this.props.projects.map(function (V, I) {
+			var imgURL = 'https://farm' + V.farm + '.staticflickr.com/' + V.server + '/' + V.id + '_' + V.secret + '_m.jpg';
+			// var pageURL = 'https://www.flickr.com/photos/' + flickr.userId + '/' + V.id;
+			var style = {
+				img: {
+					background: 'url(' + imgURL + ')',
+					backgroundRepeat: 'no-repeat',
+					backgroundPosition: 'center',
+					backgroundSize: 'cover',
+					width: '100%',
+					height: 180,
+					display: 'block'
+				}
+			};
+
+			imgURL_z = 'https://farm' + V.farm + '.staticflickr.com/' + V.server + '/' + V.id + '_' + V.secret + '_z.jpg';
+			//console.log(imgURL);
 
 			return (
 				<div className="pure-u-1-2 pure-u-sm-1-4 pure-u-lg-1-8" key={'prdgrid' + I.toString()}>
-					<span style={style.img}></span>
+					<a href={imgURL_z} className="grid" onClick={this.handleClickImage}><span style={style.img}><p className="desc">{V.title}</p></span></a>
 				</div>
 			);
-		});
+		}.bind(this));
 		
 		return (
 			<div className="product">
-				<div className="selector">
-					<ul>
-						<li><a href="#">熱情南洋</a></li>
-						<li><a href="#">典雅南歐</a></li>
-						<li><a href="#">禪意日式</a></li>
-						<li><a href="#">地中海風情</a></li>
-						<li><a href="#">中庭自建地</a></li>
-					</ul>
+				<div className={cns('showOriginImage', this.state.showOriginImage && 'show')} style={{
+					backgroundImage: 'url(' + this.state.whichImage + ')',
+					backgroundRepeat: 'no-repeat',
+					backgroundPosition: 'center',
+					backgroundSize: 'contain',
+				}}>
+					<a href="#" className="close" onClick={this.handelCloseImage}>CLOSE&nbsp;[X]</a>
 				</div>
-				<div className="photo-grid pure-g">
+				<div className={cns('pure-g', (!this.state.showThumbImage) && 'hidden')}>
 					{grid}
 				</div>
 			</div>
