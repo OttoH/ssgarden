@@ -2,6 +2,7 @@
 @font_n: 1.6rem;
 @font_l: 1.8rem;
 @font_xl: 2.0rem;
+@font_xxl: 2.6rem;
 
 @header_title: #3D3D3D;
 @header_content: #777;
@@ -9,6 +10,8 @@
 @sub-img-title-bg: #F2F2F2;
 @footer-bg: #D3CFCE;
 @white: #EFF8EE;
+@green: rgba(137, 185, 35, 1);
+@brown: rgba(166, 116, 105, 1);
 
 
 :root {
@@ -18,6 +21,11 @@
 
 a {
 	text-decoration: none;
+	color: @header_content;
+	
+	&:visited {
+		color: @header_content;
+	}
 }
 
 .hidden {
@@ -43,6 +51,16 @@ html, button, input, select, textarea,
 
 .pure-menu li a:focus {
 	background: none;
+}
+
+.logo (@width: 100%, @height: 46px, @pos: center) {
+	display: inline-block;
+	background-image: url('../data/main/logo.svg');
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: @pos;
+	width: @width;
+	height: @height;
 }
 
 

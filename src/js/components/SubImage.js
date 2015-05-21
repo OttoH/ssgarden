@@ -3,11 +3,11 @@ var React = require('react'),
 	Navigation = Router.Navigation,
     Link = Router.Link;
 
-var Fluxxor = require('Fluxxor'),
+var Fluxxor = require('fluxxor'),
     FluxMixin = Fluxxor.FluxMixin(React);
 
 var $ = require('jquery');
-var Request = require('request');
+//var Request = require('request');
 
 var SubImage = React.createClass({
 

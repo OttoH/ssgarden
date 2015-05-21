@@ -1,6 +1,6 @@
 var React = require('react');
 
-var Fluxxor = require('Fluxxor'),
+var Fluxxor = require('fluxxor'),
     FluxMixin = Fluxxor.FluxMixin(React),
     StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
@@ -20,19 +20,24 @@ var ItemApp = React.createClass({
 		    	projects: pContent
 		    };
 	    } else {
-	    	flux.actions.getSubFromFlickr('kits');
+	    	flux.actions.getSubFromFlickrMulti('kits');
 	    	return {projects: []};
 	    }  
 	},
 
 	render: function() {
 		var state = this.state;
+		
+		var grids = state.projects.map(function (V, I) {
+				return (<ProjectGrid projects={V.photo} key={"kits.grids." + I} isShort={true}/>);
+			});
 
+		console.log(this.state.projects);
 		return (
-			<div className="app-contain">
-				<div className="head-wrap">
-					<ItemHeader title="盆栽組合" />
-					<ProjectGrid projects={this.state.projects} />
+			<div className="app-contain scroll-container" ref="scrollContainer">
+				<div className="head-sub-page short">
+					<ItemHeader title="花市" />
+					{grids}
 					<Footer />
 				</div>
 			</div>

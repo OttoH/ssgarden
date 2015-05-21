@@ -4,6 +4,7 @@ var cns = require('../lib/className');
 var flickr = require('../webData')('flickr');
 
 var ProdGrid = React.createClass({
+
 	getInitialState: function() {
 	    return {
 				whichImage: 'data/main/404.png',
@@ -36,6 +37,7 @@ var ProdGrid = React.createClass({
 	},
 
 	render: function() {
+		var props = this.props;
 		var imgURL_z = 'data/main/404.png';
 
 		var grid = this.props.projects.map(function (V, I) {
@@ -64,7 +66,7 @@ var ProdGrid = React.createClass({
 		}.bind(this));
 		
 		return (
-			<div className="product">
+			<div className={cns('product', props.isShort && 'short', props.hidden && 'hidden')}>
 				<div className={cns('showOriginImage', this.state.showOriginImage && 'show')} style={{
 					backgroundImage: 'url(' + this.state.whichImage + ')',
 					backgroundRepeat: 'no-repeat',

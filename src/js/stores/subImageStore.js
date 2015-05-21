@@ -5,7 +5,7 @@ var subImageStore = Fluxxor.createStore({
 	initialize: function(opt) {
 		this.imgs = opt.imgs;
 		this.subContent = {
-			projects: []
+			projects: {}
 		};
 
 		this.bindActions(Constants.GET_SUB_FROM_FLICKR, this.getSubFromFlickr);

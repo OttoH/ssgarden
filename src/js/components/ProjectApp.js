@@ -1,6 +1,6 @@
 var React = require('react');
 
-var Fluxxor = require('Fluxxor'),
+var Fluxxor = require('fluxxor'),
     FluxMixin = Fluxxor.FluxMixin(React),
     StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
@@ -17,22 +17,43 @@ var ProjectApp = React.createClass({
 
 	    if (pContent.length) {
 	    	return {
-		    	projects: pContent
+		    	projects: pContent,
+		    	isOpen: 0
 		    };
 	    } else {
-	    	flux.actions.getSubFromFlickr('projects');
-	    	return {projects: []};
+	    	flux.actions.getSubFromFlickrMulti('projects');
+	    	return {
+	    		projects: [],
+	    		isOpen: 0
+	    	};
 	    }
+	},
+	
+	toggleOpen: function (e) {
+		e.preventDefault();
+
+		this.setState({
+			isOpen: e.currentTarget.getAttribute('href')
+		});
 	},
 
 	render: function() {
 		var state = this.state;
 
+		var grids = state.projects.map(function (V, I) {
+				return (
+					<div key={"projects.grids" + I}>
+						<a href={I} onClick={this.toggleOpen}><span className="grid-title">{V.title}</span></a>
+						<ProjectGrid projects={V.photo} hidden={(Number(state.isOpen) !== I)}/>
+					</div>
+				);
+			}.bind(this));
+
 		return (
-			<div className="app-contain">
-				<div className="head-wrap">
-					<ItemHeader title="景觀作品" />
-					<ProjectGrid projects={this.state.projects} />
+			<div className="app-contain scroll-container" ref="scrollContainer">
+				<div className="head-sub-page">
+					<ItemHeader title="設計工程" />
+					{grids}
 					<Footer />
 				</div>
 			</div>

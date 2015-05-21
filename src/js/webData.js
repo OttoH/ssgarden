@@ -8,6 +8,7 @@ var webData ={
 			addr: '台中市東山路一段378-8號',
 			gmap: 'http://goo.gl/maps/wZI6q'
 		},
+		meatDesc: ['原產於中亞非與美洲大陸，主要生長於極端乾燥的環境，像是海濱、高山、沙漠等區域；多肉植物的根、莖、葉特化成為肥厚的肉質，可儲存水分的器官，用以抵抗乾旱，種類超過萬種以上。多肉生長茁壯，要給予半日照甚至全日照的室外環境。多肉植物耐旱、耐乾，非常怕熱潮濕，為避免其根系、葉片腐爛，日常給水、介質調配與環境通風度要特別注意。'],
 		mainImgs: ['data/main/main1.jpg', 'data/main/main2.jpg', 'data/main/main3.jpg'],
 		subImgs: [
 					{title: '景觀作品', img:'data/main/sub1.jpg', link: 'projects'},
@@ -16,14 +17,14 @@ var webData ={
 					{title: '盆栽組合', img: 'data/main/sub3.jpg', link: 'kits'} 
 				],
 		flickr: {
-			userId: 'hchenghao',
-			apiKey: '3f41db68a31ed2e3aef51dcf0c6aac80',
-			secret: '0dac8ea46ff1a848',
+			userId: 'silver.spire',
+			apiKey: '8bf6cf083c6449eba4c5cb2b1948e259',
+			secret: 'd1f64fa70f3dd7c0',
 			sets: {
-				projects: '72157644425869006',
-				works: '72157644425869006',
-				resource: '72157644425869006',
-				kits: '72157644425869006'
+				projects: '72157651068343325,72157651294111842,72157650896421478,72157648981475873,72157651068433615',
+				works: '72157651294111842',
+				resource: '72157651294111842',
+				kits: '72157650968209518'
 			}
 
 		}

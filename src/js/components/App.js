@@ -1,40 +1,321 @@
 var React = require('react'),
-	Router = require("react-router");
+	Router = require("react-router"),
+	Navigation = Router.Navigation,
+    Link = Router.Link;
 
-var Fluxxor = require('Fluxxor'),
+var Fluxxor = require('fluxxor'),
     FluxMixin = Fluxxor.FluxMixin(React),
     StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
 var Header = require('./Header');
-var MainImage = require('./MainImage');
-var SubImage = require('./SubImage');
-var Footer = require('./Footer');
+var WD = require('../webData.js');
+//var MainImage = require('./MainImage');
+//var SubImage = require('./SubImage');
+//var Footer = require('./Footer');
+
+var TweenLite = require('gsap');
+var SmoothScrollMixin = require('../lib/smoothScroll.js');
+var cns = require('../lib/className');
+var mGoWhere = false;
+var mChange = -2;
 
 var App = React.createClass({
-	mixins: [FluxMixin, StoreWatchMixin('mainImageStore')],
+	mixins: [FluxMixin, Navigation, StoreWatchMixin('mainImageStore'), SmoothScrollMixin],
 
 	getStateFromFlux: function() {
 	    var flux = this.getFlux();
+
 	    return {
 	      	mainImage: flux.store('mainImageStore').getState(),
-	      	subImages: flux.store('subImageStore').getState()
+	      	subImages: flux.store('subImageStore').getState(),
+	      	showCover: false,
+	      	where: '',
+	      	lastWhere: ''
 	    };
+	},
+	
+	handleScrollTo: function(e) {
+			e.preventDefault();
+			var $container = this.refs.scrollContainer.getDOMNode();
+			
+			this.setState({
+		    	where: e.currentTarget.getAttribute('data-where'),
+		    	lastWhere: e.currentTarget.getAttribute('data-where')
+		    });
+		    
+		    mGoWhere = true;
+			
+			cancelAnimationFrame(this.animFrame);
+			
+			this.setState({
+		      nextPosition: e.currentTarget.getAttribute('data-y')
+		    });
+		    
+		    window.scroll(0, e.currentTarget.getAttribute('data-y'));
+		    
+		    this.animFrame = requestAnimationFrame(this.animationLoop);
+		    
+	},
+	
+	handleSubImage: function (e) {
+		e.preventDefault();
+
+		var link = e.currentTarget.getAttribute('href') || '#';
+
+		if (link !== '#') {
+			this.getFlux().actions.getSubFromFlickrMulti(link);
+			
+			this.transitionTo(link, {});
+			
+		}
+		
+
 	},
 
 	render: function() {
 		var state = this.state;
+		var mWhere;
+
+		if (!mGoWhere) {
+			if (state.scrollPercent < 5) {
+				mWhere = 'cover';
+			} else if (state.scrollPercent >= 7 && state.scrollPercent < 15) {
+				mWhere = 'about';
+			} else if (state.scrollPercent >= 15 && state.scrollPercent < 23) {
+				mWhere = 'meat';
+			} else if (state.scrollPercent >= 23 && state.scrollPercent < 30) {
+				mWhere = 'air';
+			} else if (state.scrollPercent >= 30 && state.scrollPercent < 38) {
+				mWhere = 'flover';
+			} else if (state.scrollPercent >= 38 && state.scrollPercent < 46) {
+				mWhere = 'suit';
+			} else if (state.scrollPercent >= 46 && state.scrollPercent < 53) {
+				mWhere = 'life';
+			} else if (state.scrollPercent >= 53 && state.scrollPercent < 61) {
+				mWhere = 'season';
+			} else if (state.scrollPercent >= 61 && state.scrollPercent < 69) {
+				mWhere = 'water';
+			} else if (state.scrollPercent >= 69 && state.scrollPercent < 76) {
+				mWhere = 'float';
+			} else if (state.scrollPercent >= 76 && state.scrollPercent < 76) {
+				mWhere = 'garden-view';
+			} else if (state.scrollPercent >= 76 && state.scrollPercent < 92) {
+				mWhere = 'balcony';
+			} else if (state.scrollPercent >= 92 && state.scrollPercent < 99) {
+				mWhere = 'market';
+			} else if (state.scrollPercent >= 92) {
+				mWhere = 'contact';
+			}
+		} else {
+			mWhere = state.lastWhere;
+			mChange++;
+		}
+		
+		if (mChange === 0) {
+			mGoWhere = false;
+			mChange = -2;
+		}
 		
 		return (
 			<div className="app-contain" key={name}>
-				<div className="head-wrap">
-					<Header flux={flux} />
-					<MainImage mainImg={state.mainImage.selectMainImg} />
+				<div className={cns('head-wrap', (state.where === 'cover' || mWhere == 'cover') && 'cover')}>
+				<div className="header">
+				<div className="menu shadow">
+					<div className="side-section">
+						<a href="#" data-y="770" data-where="about" className={cns('nav-item', (mWhere === 'about' || state.where === 'about') && 'located')} onClick={this.handleScrollTo}><span data-y="770">{'About'}</span></a>
+						<a href="#" data-where="meat" className={cns('nav-item', (mWhere === 'meat' || state.where === 'meat') && 'located')} data-y="1538" onClick={this.handleScrollTo}><span data-y="1538">{'多肉精靈'}</span></a>
+						<a href="#" data-where="air" className={cns('nav-item', (mWhere === 'air' || state.where === 'air') && 'located')} data-y="2311" onClick={this.handleScrollTo}><span data-y="2300">{'氣根生'}</span></a>
+						<a href="#" data-where="flover" className={cns('nav-item', (mWhere === 'flover' || state.where === 'flover') && 'located')} data-y="3074" onClick={this.handleScrollTo}><span data-y="3074">{'芳香生活'}</span></a>
+						<a href="#" data-where="suit" className={cns('nav-item', (mWhere === 'suit' || state.where === 'suit') && 'located')} data-y="3840" onClick={this.handleScrollTo}><span data-y="3840">{'精緻組盆'}</span></a>
+						<a href="#" data-where="life" className={cns('nav-item', (mWhere === 'life' || state.where === 'life') && 'located')} data-y="4607" onClick={this.handleScrollTo}><span data-y="4607">{'品味生活'}</span></a>
+						<a href="#" data-where="season" className={cns('nav-item', (mWhere === 'season' || state.where === 'season') && 'located')} data-y="5377" onClick={this.handleScrollTo}><span data-y="5377">{'季節草花'}</span></a>
+						<a href="#" className={cns('nav-item')}><span>{'工程'}</span></a>
+						<a href="#" data-where="water" className={cns('nav-item', 'indent', (mWhere === 'water' || state.where === 'water') && 'located')} data-y="6143" onClick={this.handleScrollTo}><span data-y="6143">{'水景'}</span></a>
+						<a href="#" data-where="float" className={cns('nav-item', 'indent', (mWhere === 'float' || state.where === 'float') && 'located')} data-y="6920" onClick={this.handleScrollTo}><span data-y="6920">{'空中花園'}</span></a>
+						<a href="#" data-where="garden-view" className={cns('nav-item', 'indent', (mWhere === 'garden-view' || state.where === 'garden-view') && 'located')} data-y="7680" onClick={this.handleScrollTo}><span data-y="7680">{'庭園景觀'}</span></a>
+						<a href="#" data-where="balcony" className={cns('nav-item', 'indent', (mWhere === 'balcony' || state.where === 'balcony') && 'located')} data-y="8450" onClick={this.handleScrollTo}><span data-y="8450">{'露台景觀'}</span></a>
+						<a href="#" data-where="market" className={cns('nav-item', (mWhere === 'market' || state.where === 'market') && 'located')} data-y="9216" onClick={this.handleScrollTo}><span data-y="9216">{'花市'}</span></a>
+						<a href="#" data-where="contact" className={cns('nav-item', (mWhere === 'contact' || state.where === 'contact') && 'located')} data-y="9984" onClick={this.handleScrollTo}><span data-y="9984">{'聯絡我們'}</span></a>
+					</div>
+					<div><a href="#" className="logo"></a></div>
 				</div>
-				<div className="sub-wrap">
-					<SubImage flux={flux} subImages={state.subImages.subImgs} />
+			</div>
 				</div>
-				<div className="footer-wrap">
-					<Footer />
+				<div className="scroll-container" ref="scrollContainer">
+				<div className="main-image cover">
+					<div className="sub-image cover">
+						<div className="sub-title">
+							<span className="title"></span>
+						</div>
+						<span className="copy-right">本網站刊出之內容、圖片之著作權，屬於禧樹景觀所有，未經本公司同意或授權，任何人不得隨意轉載、散佈、引用。</span>
+					</div>
+				</div>
+				<div className="main-image about" id='#about'>
+					<div className={cns('sub-image', 'page-text')}>
+						<div className="sub-title"><span>{'ABOUT'}</span></div>
+						<div className="sub-content"><span>{WD('headerDesc')}</span></div>
+						<div className="sub-select">
+							<a href="projects" onClick={this.handleSubImage} className="circle-btn"><span>工程</span></a>
+							<a href="kits" onClick={this.handleSubImage} className="circle-btn"><span>花市</span></a>
+						</div>
+					</div>
+				</div>
+				<div className="main-image meat">
+					<div className="sub-image page-text">
+						<div className="sub-title">
+							<p>{'多肉精靈'}</p>
+							<p>{'SUCCULENT'}</p>
+						</div>
+						<div className="sub-content">
+							<div className="window-area">
+								{WD('meatDesc')}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div className="main-image air">
+					<div className="sub-image page-text">
+						<div className="sub-title">
+							<p>{'氣根生'}</p>
+							<p>{'AERIAL ROOT'}</p>
+						</div>
+						<div className="sub-content">
+							<div className="window-area">
+								{WD('meatDesc')}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div className="main-image flover">
+					<div className="sub-image page-text">
+						<div className="sub-title">
+							<p>{'芳香生活'}</p>
+							<p>{'HERB'}</p>
+						</div>
+						<div className="sub-content">
+							<div className="window-area">
+								{WD('meatDesc')}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div className="main-image suit">
+					<div className="sub-image page-text">
+						<div className="sub-title">
+							<p>{'精緻組盆'}</p>
+							<p>{'POTTING'}</p>
+						</div>
+						<div className="sub-content">
+							<div className="window-area">
+								{WD('meatDesc')}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div className="main-image life">
+					<div className="sub-image page-text">
+						<div className="sub-title">
+							<p>{'品味生活'}</p>
+							<p>{'LIFESTYLE'}</p>
+						</div>
+						<div className="sub-content">
+							<div className="window-area">
+								{WD('meatDesc')}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div className="main-image season">
+					<div className="sub-image page-text">
+						<div className="sub-title">
+							<p>{'季節花草'}</p>
+							<p>{'SEASON'}</p>
+						</div>
+						<div className="sub-content">
+							<div className="window-area">
+								{WD('meatDesc')}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div className="main-image water">
+					<div className="sub-image page-text">
+						<div className="sub-title">
+							<p>{'水景'}</p>
+							<p>{'WATER'}</p>
+						</div>
+						<div className="sub-content">
+							<div className="window-area">
+								{WD('meatDesc')}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div className="main-image float">
+					<div className="sub-image page-text">
+						<div className="sub-title">
+							<p>{'空中花園'}</p>
+							<p>{'PARADISE'}</p>
+						</div>
+						<div className="sub-content">
+							<div className="window-area">
+								{WD('meatDesc')}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div className="main-image garden-view">
+					<div className="sub-image page-text">
+						<div className="sub-title">
+							<p>{'庭園景觀'}</p>
+							<p>{'GARDENVIEW'}</p>
+						</div>
+						<div className="sub-content">
+							<div className="window-area">
+								{WD('meatDesc')}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div className="main-image balcony">
+					<div className="sub-image page-text">
+						<div className="sub-title">
+							<p>{'露台景觀'}</p>
+							<p>{'BALCONY'}</p>
+						</div>
+						<div className="sub-content">
+							<div className="window-area">
+								{WD('meatDesc')}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div className="main-image market">
+					<div className="sub-image page-text">
+						<div className="sub-title">
+							<p>{'花市'}</p>
+							<p>{'MARKET'}</p>
+						</div>
+						<div className="sub-content">
+							<div className="window-area">
+								{WD('meatDesc')}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div className="main-image contact">
+					<div className="sub-image page-text">
+						<div className="sub-title">
+							<p>{'聯絡我們'}</p>
+							<p>{'CONTACT'}</p>
+						</div>
+						<div className="sub-content">
+							<div className="window-area">
+								{WD('meatDesc')}
+							</div>
+						</div>
+					</div>
+				</div>
 				</div>
 			</div>
 		);

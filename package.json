@@ -22,6 +22,8 @@
         "react-router": "^0.11.6",
         "fluxxor": "^1.5.1",
         "reactify": "^0.17.1",
-        "jquery": "*"
+        "jquery": "*",
+        "react-masonry-mixin": "^=0.5.6",
+        "gsap": "1.16.x"
     }
 }

@@ -1,5 +1,5 @@
 var Constants = require("../constants");
-var Request = require('request');
+//var Request = require('request');
 
 var $ = require('jquery');
 var flickr = require('../webData')('flickr');
@@ -35,6 +35,44 @@ module.exports = {
 	        console.error('flickr', status, err.toString());
 	      }.bind(this)
 	    });
+	},
+	
+	getSubFromFlickrMulti: function (link) {
+		var urls = flickr.sets[link].split(",");
+		var promiseArr = [];
+		var payload = {};
+					
+		urls.forEach(function (V, I) {
+			promiseArr.push(new Promise (function (resolve, reject) {
+				var url = 'https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&'
+					+ 'api_key=' + flickr.apiKey + '&'
+					+ 'photoset_id=' + V + '&'
+					+ 'format=json&nojsoncallback=1';
+					
+				$.ajax({
+			      url: url,
+			      dataType: 'json',
+			      cache: true,
+			      success: function(data) {
+			      	resolve({
+			      		'title': data.photoset.title,
+			      		'photo': data.photoset.photo
+			      	});
+			        
+			      },
+
+			      error: function(xhr, status, err) {
+			        console.error('flickr', status, err.toString());
+			        reject(err);
+			      }
+			    });
+			}));
+		});
+		Promise.all(promiseArr)
+				.then(function (D) {
+					payload[link] = D;
+					this.dispatch(Constants.GET_SUB_FROM_FLICKR, payload);
+				}.bind(this));
 	},
 
 	setCurrentWork: function (year) {
