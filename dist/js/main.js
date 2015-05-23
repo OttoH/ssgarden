@@ -45747,7 +45747,7 @@ var App = React.createClass({displayName: "App",
 		    
 		    mGoWhere = true;
 			
-			cancelAnimationFrame(this.animFrame);
+			//cancelAnimationFrame(this.animFrame);
 			
 			this.setState({
 		      nextPosition: e.currentTarget.getAttribute('data-y')
@@ -45755,7 +45755,7 @@ var App = React.createClass({displayName: "App",
 		    
 		    window.scroll(0, e.currentTarget.getAttribute('data-y'));
 		    
-		    this.animFrame = requestAnimationFrame(this.animationLoop);
+		    //this.animFrame = requestAnimationFrame(this.animationLoop);
 		    
 	},
 	
@@ -46579,7 +46579,7 @@ var SmoothScrollMixin = {
 
 
   setupStyles: function() {
-    this.refs.scrollContainer.getDOMNode().style.position = 'fixed'
+    //this.refs.scrollContainer.getDOMNode().style.position = 'fixed'
   },
 
 
@@ -46596,10 +46596,11 @@ var SmoothScrollMixin = {
     this.state.currentPosition += ~~(this.state.nextPosition - this.state.currentPosition) * this.state.friction
     this.state.scrollPercent    = ~~(this.state.currentPosition / (parseInt($container.parentNode.style.height) - window.innerHeight) * 100)
 
-    TweenLite.set( $container, {
-      y: -this.state.currentPosition
-    })
-
+    /*
+    //TweenLite.set( $container, {
+    //  y: -this.state.currentPosition
+    //})
+    */
     this.animFrame = requestAnimationFrame( this.animationLoop );
   },
 

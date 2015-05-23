@@ -64,6 +64,20 @@ html, button, input, select, textarea,
 }
 
 
+.flex (@grow: 1, @shrink: 1, @basis: 100%) {
+  -webkit-flex: @grow @shrink @basis;
+	-ms-flex: @grow @shrink @basis;
+	-moz-flex: @grow @shrink @basis;
+	flex: @grow @shrink @basis;
+}
+
+.align-self(@arg: flex-start) {
+  -webkit-align-self: @arg;
+  -ms-align-self: @arg;
+  -moz-align-self: @arg;
+  align-self: @arg;
+}
+
 // page anim
 .page-enter {
   opacity: 0.01;

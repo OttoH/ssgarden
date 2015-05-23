@@ -432,7 +432,7 @@
 		align-items: center;
 		
 		& > * {
-		  flex: 1 100%;
+			.flex();
 		}
 		
 		&.cover {
@@ -451,8 +451,8 @@
 		}
 		
 		.sub-title{
-			flex: 1 100%;
-			align-self: flex-end;
+			.flex();
+			.align-self(flex-end);
 			
 			p {
 				margin: .4em 0;
@@ -460,11 +460,11 @@
 		}
 		
 		.sub-content {
-			flex: 0 1 60%;
+			.flex(0, 1, 60%);
+			.align-self();
 			margin: auto; 
 			font-size: @font_n;
 			line-height: 1.6;
-			align-self: flex-start;
 			
 			.window-area {
 				background: rgba(235, 235, 235, 0.8);
@@ -488,8 +488,8 @@
 		}
 		
 		.sub-select {
-			flex: 1 100%;
-			align-self: flex-start;
+			.flex();
+			.align-self(flex-start);
 			
 			.circle-btn {
 				display: inline-block;
@@ -516,8 +516,8 @@
 		}
 
 		.copy-right {
-			flex: 0 1 66%;
-			align-self: flex-end;
+			.flex(0, 1, 66%);
+			.align-self(flex-end);
 			text-align: right;
 			text-shadow: 0 2px 3px rgba(197, 203, 199, 0.6);
 			font-size: @font_s;

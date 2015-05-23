@@ -45,7 +45,7 @@ var App = React.createClass({
 		    
 		    mGoWhere = true;
 			
-			cancelAnimationFrame(this.animFrame);
+			//cancelAnimationFrame(this.animFrame);
 			
 			this.setState({
 		      nextPosition: e.currentTarget.getAttribute('data-y')
@@ -53,7 +53,7 @@ var App = React.createClass({
 		    
 		    window.scroll(0, e.currentTarget.getAttribute('data-y'));
 		    
-		    this.animFrame = requestAnimationFrame(this.animationLoop);
+		    //this.animFrame = requestAnimationFrame(this.animationLoop);
 		    
 	},
 	
