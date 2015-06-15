@@ -48,9 +48,9 @@
 
 			.logo {
 				position: absolute;
-				bottom: 86px;
+				bottom: 128px;
 				left: 12px;
-				.logo(126px, 80px, center 92%);
+				.logo(126px, 80px, center);
 			}
 
 			.nav-item {
@@ -173,7 +173,7 @@
 			.logo {
 				display: inline-block;
 				color: @header_title;
-				background-image: url('../data/main/logo.svg');
+				background-image: url('../data/main/silverspire-white.png');
 				background-size: contain;
 				background-repeat: no-repeat;
 				background-position: center;
@@ -344,7 +344,10 @@
 	&.life {
 		display: block;
 		height: 768px;
-		background: url("../data/main/life.jpg") no-repeat;
+		background: linear-gradient(
+     		rgba(0, 0, 0, 0.3),
+      		rgba(0, 0, 0, 0.3)
+    		), url("../data/main/life.jpg") no-repeat;
 		background-position: center;
 		background-size: cover;
 		
@@ -362,7 +365,10 @@
 	&.water {
 		display: block;
 		height: 768px;
-		background: url("../data/main/water.jpg") no-repeat;
+		background: linear-gradient(
+     		rgba(0, 0, 0, 0.2),
+      		rgba(0, 0, 0, 0.2)
+    		), url("../data/main/water.jpg") no-repeat;
 		background-position: center;
 		background-size: cover;
 		
@@ -380,7 +386,10 @@
 	&.garden-view {
 		display: block;
 		height: 768px;
-		background: url("../data/main/garden_view.jpg") no-repeat;
+		background: linear-gradient(
+     		rgba(0, 0, 0, 0.3),
+      		rgba(0, 0, 0, 0.3)
+    		), url("../data/main/garden_view.jpg") no-repeat;
 		background-position: center;
 		background-size: cover;
 		
@@ -389,7 +398,10 @@
 	&.balcony {
 		display: block;
 		height: 768px;
-		background: url("../data/main/balcony.jpg") no-repeat;
+		background: linear-gradient(
+     		rgba(0, 0, 0, 0.2),
+      		rgba(0, 0, 0, 0.2)
+    		), url("../data/main/balcony.jpg") no-repeat;
 		background-position: center;
 		background-size: cover;
 		
@@ -442,7 +454,7 @@
 		&.page-text {
 			justify-content: center;
 			text-align: center;
-			font-size: @font_xxl;
+			font-size: @font_page;
 		}
 		
 		&.hide {
@@ -453,6 +465,12 @@
 		.sub-title{
 			.flex();
 			.align-self(flex-end);
+			text-shadow: 0 2px 3px rgba(197, 203, 199, 0.8);
+			letter-spacing: .3em;
+			
+			&.cover {
+				.align-self(flex-end);
+			}
 			
 			p {
 				margin: .4em 0;
@@ -460,17 +478,27 @@
 		}
 		
 		.sub-content {
-			.flex(0, 1, 60%);
+			.flex(0, 1, 68%);
 			.align-self();
-			margin: auto; 
+			/*margin: auto;*/ 
 			font-size: @font_n;
 			line-height: 1.6;
+			max-height: 560px;
+			overflow-y: scroll;
+
+			@media screen and (min-width: 35.5em) {
+				&.show-overflow-y {
+    				overflow-y: visible;
+				}
+			}
+
 			
 			.window-area {
 				background: rgba(235, 235, 235, 0.8);
 				border-radius: 3px;
 				padding: 24px;
 				color: @brown;
+				max-width: 460px;
 				/*
 				&:before {
 					display: inline-block;
@@ -485,6 +513,39 @@
 				}
 				*/
 			}
+			
+			@media screen and (min-width: 35.5em) {
+				.window-area {
+					display: block;
+					background: rgba(235, 235, 235, 0.8);
+					border-radius: 50%;
+					padding: 128px;
+					color: @brown;
+  					margin: 0 auto;
+					/*
+					&:before {
+						display: inline-block;
+						width: 24px;
+						height: 16px;
+						content: '一';
+						position: relative;
+						top: -52px;
+						left: 0px;
+						padding: 6px;
+						background: rgba(235, 235, 235, 0.8);
+					}
+					*/
+				}
+			}
+			
+			.list {
+				margin: 6px 0px;
+				
+				a {
+					color: @sub-img-title-bg;
+					text-decoration: underline;
+				}
+			}
 		}
 		
 		.sub-select {
@@ -497,11 +558,11 @@
 				background-color: rgba(235, 235, 235, 0.8);
 				height: 120px;
 				width: 120px;
-  				margin: 0 auto;
+  				margin: 12px;
   				
   				span {
   					color: @header_title;
-  					line-height: 4.2;
+  					line-height: 3.6;
   				}
 			}
 		}
@@ -516,7 +577,7 @@
 		}
 
 		.copy-right {
-			.flex(0, 1, 66%);
+			.flex(0, 1, 80%);
 			.align-self(flex-end);
 			text-align: right;
 			text-shadow: 0 2px 3px rgba(197, 203, 199, 0.6);
