@@ -45732,7 +45732,8 @@ var App = React.createClass({displayName: "App",
 	      	subImages: flux.store('subImageStore').getState(),
 	      	showCover: false,
 	      	where: '',
-	      	lastWhere: ''
+	      	lastWhere: '',
+	      	isOpenHambgr: false
 	    };
 	},
 	
@@ -45776,6 +45777,11 @@ var App = React.createClass({displayName: "App",
 		}
 		
 
+	},
+	
+	handleHambgrClick: function (e) {
+		e.preventDefault();
+		this.setState({isOpenHambgr: !this.state.isOpenHambgr});
 	},
 
 	render: function() {
@@ -45828,9 +45834,20 @@ var App = React.createClass({displayName: "App",
 			mChange = -2;
 		}
 		
+		if (mWhere === 'cover') {
+			this.canMoveHeroImage = true;
+		} else {
+			this.canMoveHeroImage = false;
+		}
+		
 		return (
-			React.createElement("div", {className: "app-contain", key: name}, 
-				React.createElement("div", {className: cns('head-wrap', (state.where === 'cover' || mWhere == 'cover') && 'cover')}, 
+			React.createElement("div", {className: "app-contain"}, 
+				React.createElement("div", {className: cns('header-mobile', (state.where === 'cover' || mWhere == 'cover') && 'cover')}, 
+					React.createElement("div", {className: "hambgr"}, 
+						React.createElement("a", {href: "#", className: cns('hambgr-link', this.state.isOpenHambgr && 'active'), onClick: this.handleHambgrClick}, React.createElement("span", {className: "hamgbr-icon"}))
+					)
+				), 
+				React.createElement("div", {className: cns('head-wrap', (state.where === 'cover' || mWhere == 'cover') && 'cover', this.state.isOpenHambgr && 'open')}, 
 				React.createElement("div", {className: "header"}, 
 				React.createElement("div", {className: "menu shadow"}, 
 					React.createElement("div", {className: "side-section"}, 
@@ -45856,12 +45873,9 @@ var App = React.createClass({displayName: "App",
 				), 
 				React.createElement("div", {className: "scroll-container", ref: "scrollContainer"}, 
 				React.createElement("div", {className: "main-image cover"}, 
-					React.createElement("div", {className: "sub-image cover"}, 
-						React.createElement("div", {className: "sub-title cover"}, 
-							React.createElement("span", {className: "title"})
-						), 
-						React.createElement("span", {className: "copy-right"}, "本網站刊出之內容、圖片之著作權，屬於禧樹景觀所有，未經本公司同意或授權，任何人不得隨意轉載、散佈、引用。")
-					)
+					React.createElement("div", {className: "coverBakc", ref: "coverEffect"}), 
+					React.createElement("span", {className: "title"}), 
+					React.createElement("span", {className: "copy-right"}, "本網站刊出之內容、圖片之著作權，屬於禧樹景觀所有，未經本公司同意或授權，任何人不得隨意轉載、散佈、引用。")					
 				), 
 				React.createElement("div", {className: "main-image about", id: "#about"}, 
 					React.createElement("div", {className: cns('sub-image', 'page-text')}, 
@@ -46572,7 +46586,12 @@ var SmoothScrollMixin = {
 
 
   componentDidMount: function() {
-    window.addEventListener( 'scroll', this.onScroll )
+    window.addEventListener( 'scroll', this.onScroll );
+    
+    this.win = { width: window.innerWidth, height: window.innerHeight };
+    this.canMoveHeroImage = true;
+    
+    window.addEventListener('mousemove', this.throttle(this.onMove, 100));
 
     this.setupStyles()
     this.updateHeight()
@@ -46598,7 +46617,7 @@ var SmoothScrollMixin = {
 
 
   animationLoop: function() {
-    var $container = this.refs.scrollContainer.getDOMNode()
+    var $container = this.refs.scrollContainer.getDOMNode();
 
     this.state.currentPosition += ~~(this.state.nextPosition - this.state.currentPosition) * this.state.friction
     this.state.scrollPercent    = ~~(this.state.currentPosition / (parseInt($container.parentNode.style.height) - window.innerHeight) * 100)
@@ -46617,6 +46636,36 @@ var SmoothScrollMixin = {
       where: ''
     })
   },
+  
+  onMove: function (ev) {
+    if(!this.canMoveHeroImage) {
+      return false;
+    }
+    
+		var xVal = -1/(this.win.height/2)*ev.clientY + 1,
+				yVal = 1/(this.win.width/2)*ev.clientX - 1,
+				transX = 20/(this.win.width)*ev.clientX - 10,
+				transY = 20/(this.win.height)*ev.clientY - 10,
+				transZ = 100/(this.win.height)*ev.clientY - 50;
+				
+		var imghero = this.refs.coverEffect.getDOMNode();
+
+		imghero.style.WebkitTransform = 'perspective(1000px) translate3d(' + transX + 'px,' + transY + 'px,' + transZ + 'px) rotate3d(' + xVal + ',' + yVal + ',0,2deg)';
+		imghero.style.transform = 'perspective(1000px) translate3d(' + transX + 'px,' + transY + 'px,' + transZ + 'px) rotate3d(' + xVal + ',' + yVal + ',0,2deg)';
+  },
+  
+  
+  throttle: function (fn, delay) {
+		var allowSample = true;
+
+		return function(e) {
+			if (allowSample) {
+				allowSample = false;
+				setTimeout(function() { allowSample = true; }, delay);
+				fn(e);
+			}
+		};
+	},
   
   componentWillUnmount: function() {
         cancelAnimationFrame(this.animFrame);
@@ -46857,6 +46906,13 @@ var webData ={
 		balconyDesc: [
 			'大多數公寓、大樓的住戶,只能以擺放盆栽來滿足美化空間的慾望,但重新整頓、規劃陽台的空間,也能有效利用小空間,來創造新世界。運用木地板、礫石舖面,提升陽台空間的溫度和質感,或是手工打造、獨一無二的造型洗手台,再依照業主理想中的風格、形式,搭配合適的植栽,讓窗外的端景,不再只有堆積的物品,是充滿著感動和生命感。'
 			],
+		contact:[
+			'台中市北屯區松竹路一段 37 號',
+			'禧樹花市 Tel : 04- 2437-0585',
+			'禧樹景觀 Tel : 04- 2437-5260',
+			'Fax : 2437-5267',
+			
+		],
 		mainImgs: ['data/main/main1.jpg', 'data/main/main2.jpg', 'data/main/main3.jpg'],
 		subImgs: [
 					{title: '景觀作品', img:'data/main/sub1.jpg', link: 'projects'},

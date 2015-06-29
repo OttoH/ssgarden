@@ -144,12 +144,78 @@ textarea,
 .scroll-container {
   width: 100%;
 }
+.header-mobile {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  display: block;
+  min-height: 42px;
+  min-width: 100px;
+  z-index: 20;
+}
+.header-mobile.cover {
+  opacity: 0;
+}
+.header-mobile .hambgr {
+  height: 42px;
+  background-color: rgba(119, 50, 33, 0.4);
+  /*background-color: rgba(232, 234, 236, 0.8);*/
+}
+.header-mobile .hambgr .hambgr-link {
+  display: inline-block;
+  position: relative;
+  width: 28px;
+  height: 28px;
+  margin: 10px 30px;
+}
+.header-mobile .hambgr .hambgr-link span,
+.header-mobile .hambgr .hambgr-link span:before,
+.header-mobile .hambgr .hambgr-link span:after {
+  display: block;
+  position: absolute;
+  top: 10px;
+  cursor: pointer;
+  border-radius: 1px;
+  height: 2px;
+  width: 28px;
+  background: #89b923;
+  content: '';
+  transition: all 600ms ease-in-out;
+}
+.header-mobile .hambgr .hambgr-link span:before {
+  top: -10px;
+}
+.header-mobile .hambgr .hambgr-link span:after {
+  bottom: -10px;
+}
+.header-mobile .hambgr .hambgr-link.active span {
+  background-color: transparent;
+}
+.header-mobile .hambgr .hambgr-link.active span:before {
+  top: 0;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+}
+.header-mobile .hambgr .hambgr-link.active span:after {
+  top: 0;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+}
+@media screen and (min-width: 35.5em) {
+  .header-mobile {
+    display: none;
+  }
+}
 .head-wrap {
   position: fixed;
   top: 0px;
   left: 0px;
   display: inline-block;
-  min-width: 120px;
+  min-width: 100px;
   font-size: 1.6rem;
   z-index: 10;
   background-color: rgba(119, 50, 33, 0.8);
@@ -157,6 +223,9 @@ textarea,
 }
 .head-wrap.cover {
   opacity: 0;
+}
+.head-wrap.open {
+  display: inline-block;
 }
 .head-wrap .header {
   width: 100%;
@@ -168,7 +237,7 @@ textarea,
 }
 .head-wrap .header .menu {
   display: block;
-  margin: 24px 0;
+  margin: 36px 0;
 }
 .head-wrap .header .menu.shadow {
   /*
@@ -256,6 +325,11 @@ textarea,
 .head-wrap .header .about-block a:visited,
 .head-wrap .header .contact-block a:visited {
   color: #777777;
+}
+@media screen and (max-width: 35.5em) {
+  .head-wrap {
+    display: none;
+  }
 }
 .head-sub-page {
   display: block;
@@ -393,11 +467,55 @@ textarea,
 }
 .main-image.cover {
   display: block;
-  background: url("../data/main/main1.jpg") no-repeat;
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("../data/main/main1.jpg") no-repeat;
   background-position: center;
   background-size: cover;
+  -webkit-transform: perspective(1000px) translate3d(0px, 0px, 0px) rotate3d(1, 1, 1, 0deg);
+  transform: perspective(1000px) translate3d(0px, 0px, 0px) rotate3d(1, 1, 1, 0deg);
   width: 100%;
   height: 768px;
+}
+.main-image .coverBakc {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("../data/main/main1.jpg") no-repeat;
+  background-position: center;
+  background-size: cover;
+  opacity: 0.8;
+  width: 100%;
+  height: 768px;
+}
+.main-image .title {
+  position: relative;
+  top: 360px;
+  right: 46px;
+  display: inline-block;
+  background-image: url('../data/main/silverspire-white.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+  height: 86px;
+  background-position: 92%;
+  font-size: 1.6rem;
+  padding: 12px 0;
+  text-shadow: 0 2px 3px rgba(197, 203, 199, 0.8);
+  font-weight: lighter;
+}
+.main-image .copy-right {
+  position: relative;
+  top: 640px;
+  text-shadow: 0 2px 3px rgba(197, 203, 199, 0.6);
+  font-size: 1.2rem;
+  font-weight: lighter;
+  word-wrap: break-word;
+  color: rgba(212, 213, 211, 0.8);
+  /*
+		background: #000;
+		background: -webkit-gradient(linear, center top, center bottom, from(rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0.7)));
+        background: -webkit-linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7));
+        */
 }
 .main-image.about {
   display: block;
@@ -490,6 +608,12 @@ textarea,
   background-position: center;
   background-size: cover;
 }
+.main-image .title-cover {
+  display: block;
+  position: relative;
+  top: 600px;
+  right: 60px;
+}
 .main-image .sub-image {
   display: -webkit-box;
   display: -moz-box;
@@ -561,18 +685,32 @@ textarea,
   line-height: 1.6;
   max-height: 560px;
   overflow-y: scroll;
-}
-@media screen and (min-width: 35.5em) {
-  .main-image .sub-image .sub-content.show-overflow-y {
-    overflow-y: visible;
-  }
+  /*
+			@media screen and (min-width: 35.5em) {
+				&.show-overflow-y {
+    				overflow-y: visible;
+				}
+			}
+			*/
+  /*
+			@media screen and (min-width: 35.5em) {
+				.window-area {
+					display: block;
+					background: rgba(235, 235, 235, 0.8);
+					border-radius: 50%;
+					padding: 128px;
+					color: @brown;
+  					margin: 0 auto;
+					
+				}
+			}
+			*/
 }
 .main-image .sub-image .sub-content .window-area {
   background: rgba(235, 235, 235, 0.8);
   border-radius: 3px;
   padding: 24px;
   color: #a67469;
-  max-width: 460px;
   /*
 				&:before {
 					display: inline-block;
@@ -586,29 +724,6 @@ textarea,
 					background: rgba(235, 235, 235, 0.8);
 				}
 				*/
-}
-@media screen and (min-width: 35.5em) {
-  .main-image .sub-image .sub-content .window-area {
-    display: block;
-    background: rgba(235, 235, 235, 0.8);
-    border-radius: 50%;
-    padding: 128px;
-    color: #a67469;
-    margin: 0 auto;
-    /*
-					&:before {
-						display: inline-block;
-						width: 24px;
-						height: 16px;
-						content: '一';
-						position: relative;
-						top: -52px;
-						left: 0px;
-						padding: 6px;
-						background: rgba(235, 235, 235, 0.8);
-					}
-					*/
-  }
 }
 .main-image .sub-image .sub-content .list {
   margin: 6px 0px;
@@ -638,41 +753,6 @@ textarea,
 .main-image .sub-image .sub-select .circle-btn span {
   color: #3d3d3d;
   line-height: 3.6;
-}
-.main-image .sub-image .title {
-  display: inline-block;
-  background-image: url('../data/main/silverspire-white.png');
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 100%;
-  height: 86px;
-  background-position: 92%;
-  font-size: 1.6rem;
-  padding: 12px 0;
-  text-shadow: 0 2px 3px rgba(197, 203, 199, 0.8);
-  font-weight: lighter;
-}
-.main-image .sub-image .copy-right {
-  -webkit-flex: 0 1 80%;
-  -ms-flex: 0 1 80%;
-  -moz-flex: 0 1 80%;
-  flex: 0 1 80%;
-  -webkit-align-self: flex-end;
-  -ms-align-self: flex-end;
-  -moz-align-self: flex-end;
-  align-self: flex-end;
-  text-align: right;
-  text-shadow: 0 2px 3px rgba(197, 203, 199, 0.6);
-  font-size: 1.2rem;
-  font-weight: lighter;
-  word-wrap: break-word;
-  color: rgba(212, 213, 211, 0.8);
-  /*
-			background: #000;
-			background: -webkit-gradient(linear, center top, center bottom, from(rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0.7)));
-	        background: -webkit-linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7));
-	        */
 }
 .sub-images {
   margin: 12px 0px;

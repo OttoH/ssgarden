@@ -30,7 +30,8 @@ var App = React.createClass({
 	      	subImages: flux.store('subImageStore').getState(),
 	      	showCover: false,
 	      	where: '',
-	      	lastWhere: ''
+	      	lastWhere: '',
+	      	isOpenHambgr: false
 	    };
 	},
 	
@@ -74,6 +75,11 @@ var App = React.createClass({
 		}
 		
 
+	},
+	
+	handleHambgrClick: function (e) {
+		e.preventDefault();
+		this.setState({isOpenHambgr: !this.state.isOpenHambgr});
 	},
 
 	render: function() {
@@ -126,9 +132,20 @@ var App = React.createClass({
 			mChange = -2;
 		}
 		
+		if (mWhere === 'cover') {
+			this.canMoveHeroImage = true;
+		} else {
+			this.canMoveHeroImage = false;
+		}
+		
 		return (
-			<div className="app-contain" key={name}>
-				<div className={cns('head-wrap', (state.where === 'cover' || mWhere == 'cover') && 'cover')}>
+			<div className="app-contain">
+				<div className={cns('header-mobile', (state.where === 'cover' || mWhere == 'cover') && 'cover')}>
+					<div className="hambgr">
+						<a href="#" className={cns('hambgr-link', this.state.isOpenHambgr && 'active')} onClick={this.handleHambgrClick}><span className="hamgbr-icon"></span></a>
+					</div>
+				</div>
+				<div className={cns('head-wrap', (state.where === 'cover' || mWhere == 'cover') && 'cover', this.state.isOpenHambgr && 'open')}>
 				<div className="header">
 				<div className="menu shadow">
 					<div className="side-section">
@@ -154,12 +171,9 @@ var App = React.createClass({
 				</div>
 				<div className="scroll-container" ref="scrollContainer">
 				<div className="main-image cover">
-					<div className="sub-image cover">
-						<div className="sub-title cover">
-							<span className="title"></span>
-						</div>
-						<span className="copy-right">本網站刊出之內容、圖片之著作權，屬於禧樹景觀所有，未經本公司同意或授權，任何人不得隨意轉載、散佈、引用。</span>
-					</div>
+					<div className="coverBakc" ref="coverEffect" />
+					<span className="title"></span>
+					<span className="copy-right">本網站刊出之內容、圖片之著作權，屬於禧樹景觀所有，未經本公司同意或授權，任何人不得隨意轉載、散佈、引用。</span>					
 				</div>
 				<div className="main-image about" id='#about'>
 					<div className={cns('sub-image', 'page-text')}>
