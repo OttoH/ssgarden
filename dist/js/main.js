@@ -46023,19 +46023,24 @@ var App = React.createClass({displayName: "App",
 							React.createElement("p", null, '聯絡我們'), 
 							React.createElement("p", null, 'CONTACT')
 						), 
-						React.createElement("div", {className: "sub-content"}, 
-							React.createElement("p", {className: "list"}, React.createElement("a", {href: "https://www.google.com.tw/maps/place/Section+1,+Songzhu+Rd,+Beitun+District,+Taichung+City,+406/@24.1822959,120.7149144,17z/data=!3m1!4b1!4m2!3m1!1s0x3469182101bb80db:0xabcc34d69ad86a35", target: "_blank"}, "台中市北屯區松竹路一段 37 號")), 
-							React.createElement("p", {className: "list"}, "禧樹花市 04- 2437-0585"), 
-							React.createElement("p", {className: "list"}, "禧樹景觀 04- 2437-5260"), 
-							React.createElement("p", {className: "list"}, "Fax : 2437-5267"), 
-							React.createElement("p", {className: "list"}, React.createElement("a", {href: "mailto:shi.shu@msa.hinet.net"}, "shi.shu@msa.hinet.net")), 
-							React.createElement("p", {className: "list tit"}, "交通資訊"), 
-							React.createElement("p", {className: "list"}, "松竹路東山路交叉口(鄰近大坑)"), 
-							React.createElement("p", {className: "list tit"}, "鄰近公車站"), 
-							React.createElement("p", {className: "list"}, "圓山新村、正覺寺"), 
-							React.createElement("p", {className: "list"}, "1、15、16、20、21、31、66、68、85、270、271、276、277"), 
-							React.createElement("p", {className: "list tit"}, "停車資訊"), 
-							React.createElement("p", {className: "list"}, "沿路路邊停車格")
+						React.createElement("div", {className: "sub-content contact"}, 
+							React.createElement("div", {className: "map"}, 
+								React.createElement("span", {className: "spire-map"})
+							), 
+							React.createElement("div", {className: "list-area"}, 
+								React.createElement("p", {className: "list"}, React.createElement("a", {href: "https://www.google.com.tw/maps/place/Section+1,+Songzhu+Rd,+Beitun+District,+Taichung+City,+406/@24.1822959,120.7149144,17z/data=!3m1!4b1!4m2!3m1!1s0x3469182101bb80db:0xabcc34d69ad86a35", target: "_blank"}, "台中市北屯區松竹路一段 37 號")), 
+								React.createElement("p", {className: "list"}, "禧樹花市 04- 2437-0585"), 
+								React.createElement("p", {className: "list"}, "禧樹景觀 04- 2437-5260"), 
+								React.createElement("p", {className: "list"}, "Fax : 2437-5267"), 
+								React.createElement("p", {className: "list"}, React.createElement("a", {href: "mailto:shi.shu@msa.hinet.net"}, "shi.shu@msa.hinet.net")), 
+								React.createElement("p", {className: "list tit"}, "交通資訊"), 
+								React.createElement("p", {className: "list"}, "松竹路東山路交叉口(鄰近大坑)"), 
+								React.createElement("p", {className: "list tit"}, "鄰近公車站"), 
+								React.createElement("p", {className: "list"}, "圓山新村、正覺寺"), 
+								React.createElement("p", {className: "list"}, "1、15、16、20、21、31、66、68、85、270、271、276、277"), 
+								React.createElement("p", {className: "list tit"}, "停車資訊"), 
+								React.createElement("p", {className: "list"}, "沿路路邊停車格")
+							)
 						)
 					)
 				)
@@ -46642,16 +46647,16 @@ var SmoothScrollMixin = {
       return false;
     }
     
-		var xVal = -1/(this.win.height/2)*ev.clientY + 1,
-				yVal = 1/(this.win.width/2)*ev.clientX - 1,
-				transX = 20/(this.win.width)*ev.clientX - 10,
-				transY = 20/(this.win.height)*ev.clientY - 10,
-				transZ = 100/(this.win.height)*ev.clientY - 50;
+		var xVal = (-1/(this.win.height/2)*ev.clientY + 1) / 2,
+				yVal = (1/(this.win.width/2)*ev.clientX - 1) / 2,
+				transX = (20/(this.win.width)*ev.clientX - 10) / 4,
+				transY = (20/(this.win.height)*ev.clientY - 10) / 4,
+				transZ = (100/(this.win.height)*ev.clientY - 50) / 4;
 				
 		var imghero = this.refs.coverEffect.getDOMNode();
 
-		imghero.style.WebkitTransform = 'perspective(1000px) translate3d(' + transX + 'px,' + transY + 'px,' + transZ + 'px) rotate3d(' + xVal + ',' + yVal + ',0,2deg)';
-		imghero.style.transform = 'perspective(1000px) translate3d(' + transX + 'px,' + transY + 'px,' + transZ + 'px) rotate3d(' + xVal + ',' + yVal + ',0,2deg)';
+		imghero.style.WebkitTransform = 'perspective(1000px) translate3d(' + transX + 'px,' + transY + 'px,' + transZ + 'px) rotate3d(' + xVal + ',' + yVal + ',0,1deg)';
+		imghero.style.transform = 'perspective(1000px) translate3d(' + transX + 'px,' + transY + 'px,' + transZ + 'px) rotate3d(' + xVal + ',' + yVal + ',0,1deg)';
   },
   
   

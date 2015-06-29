@@ -467,7 +467,7 @@ textarea,
 }
 .main-image.cover {
   display: block;
-  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("../data/main/main1.jpg") no-repeat;
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("../data/main/main1.jpg") no-repeat;
   background-position: center;
   background-size: cover;
   -webkit-transform: perspective(1000px) translate3d(0px, 0px, 0px) rotate3d(1, 1, 1, 0deg);
@@ -479,10 +479,10 @@ textarea,
   position: absolute;
   top: 0px;
   left: 0px;
-  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("../data/main/main1.jpg") no-repeat;
+  background: url("../data/main/main1.jpg") no-repeat;
   background-position: center;
   background-size: cover;
-  opacity: 0.8;
+  opacity: 0.4;
   width: 100%;
   height: 768px;
 }
@@ -541,14 +541,14 @@ textarea,
 .main-image.flover {
   display: block;
   height: 768px;
-  background: url("../data/main/flover.jpg") no-repeat;
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("../data/main/flover.jpg") no-repeat;
   background-position: center;
   background-size: cover;
 }
 .main-image.suit {
   display: block;
   height: 768px;
-  background: url("../data/main/suit.jpg") no-repeat;
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("../data/main/suit.jpg") no-repeat;
   background-position: center;
   background-size: cover;
 }
@@ -562,7 +562,7 @@ textarea,
 .main-image.season {
   display: block;
   height: 768px;
-  background: url("../data/main/season.jpg") no-repeat;
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("../data/main/season.jpg") no-repeat;
   background-position: center;
   background-size: cover;
 }
@@ -706,6 +706,51 @@ textarea,
 			}
 			*/
 }
+.main-image .sub-image .sub-content.contact {
+  -webkit-flex: 0 1 80%;
+  -ms-flex: 0 1 80%;
+  -moz-flex: 0 1 80%;
+  flex: 0 1 80%;
+  background: rgba(0, 0, 0, 0.8);
+  font-size: 1.2rem;
+}
+.main-image .sub-image .sub-content.contact .map {
+  display: inline-block;
+  width: 420px;
+  height: 360px;
+}
+.main-image .sub-image .sub-content.contact .map .spire-map {
+  display: inline-block;
+  background: url("../data/main/silverspire-map.png") no-repeat;
+  background-position: 0%;
+  background-size: contain;
+  width: 420px;
+  height: 100%;
+}
+.main-image .sub-image .sub-content.contact .list-area {
+  display: inline-block;
+  width: 360px;
+  margin: 12px 12px 12px 36px;
+  text-align: left;
+}
+.main-image .sub-image .sub-content.contact .list-area a {
+  color: #f2f2f2;
+  text-decoration: underline;
+}
+@media screen and (max-width: 35.5em) {
+  .main-image .sub-image .sub-content.contact {
+    -webkit-flex: 0 1 96%;
+    -ms-flex: 0 1 96%;
+    -moz-flex: 0 1 96%;
+    flex: 0 1 96%;
+  }
+  .main-image .sub-image .sub-content.contact .map {
+    width: 360px;
+  }
+  .main-image .sub-image .sub-content.contact .map .spire-map {
+    width: 360px;
+  }
+}
 .main-image .sub-image .sub-content .window-area {
   background: rgba(235, 235, 235, 0.8);
   border-radius: 3px;
@@ -724,13 +769,6 @@ textarea,
 					background: rgba(235, 235, 235, 0.8);
 				}
 				*/
-}
-.main-image .sub-image .sub-content .list {
-  margin: 6px 0px;
-}
-.main-image .sub-image .sub-content .list a {
-  color: #f2f2f2;
-  text-decoration: underline;
 }
 .main-image .sub-image .sub-select {
   -webkit-flex: 1 1 100%;

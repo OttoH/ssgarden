@@ -321,19 +321,24 @@ var App = React.createClass({
 							<p>{'聯絡我們'}</p>
 							<p>{'CONTACT'}</p>
 						</div>
-						<div className="sub-content">
-							<p className="list"><a href="https://www.google.com.tw/maps/place/Section+1,+Songzhu+Rd,+Beitun+District,+Taichung+City,+406/@24.1822959,120.7149144,17z/data=!3m1!4b1!4m2!3m1!1s0x3469182101bb80db:0xabcc34d69ad86a35" target="_blank">台中市北屯區松竹路一段 37 號</a></p>
-							<p className="list">禧樹花市 04- 2437-0585</p>
-							<p className="list">禧樹景觀 04- 2437-5260</p>
-							<p className="list">Fax : 2437-5267</p>
-							<p className="list"><a href="mailto:shi.shu@msa.hinet.net">shi.shu@msa.hinet.net</a></p>
-							<p className="list tit">交通資訊</p>
-							<p className="list">松竹路東山路交叉口(鄰近大坑)</p>
-							<p className="list tit">鄰近公車站</p>
-							<p className="list">圓山新村、正覺寺</p>
-							<p className="list">1、15、16、20、21、31、66、68、85、270、271、276、277</p>
-							<p className="list tit">停車資訊</p>
-							<p className="list">沿路路邊停車格</p>
+						<div className="sub-content contact">
+							<div className="map">
+								<span className="spire-map"></span>
+							</div>
+							<div className="list-area">
+								<p className="list"><a href="https://www.google.com.tw/maps/place/Section+1,+Songzhu+Rd,+Beitun+District,+Taichung+City,+406/@24.1822959,120.7149144,17z/data=!3m1!4b1!4m2!3m1!1s0x3469182101bb80db:0xabcc34d69ad86a35" target="_blank">台中市北屯區松竹路一段 37 號</a></p>
+								<p className="list">禧樹花市 04- 2437-0585</p>
+								<p className="list">禧樹景觀 04- 2437-5260</p>
+								<p className="list">Fax : 2437-5267</p>
+								<p className="list"><a href="mailto:shi.shu@msa.hinet.net">shi.shu@msa.hinet.net</a></p>
+								<p className="list tit">交通資訊</p>
+								<p className="list">松竹路東山路交叉口(鄰近大坑)</p>
+								<p className="list tit">鄰近公車站</p>
+								<p className="list">圓山新村、正覺寺</p>
+								<p className="list">1、15、16、20、21、31、66、68、85、270、271、276、277</p>
+								<p className="list tit">停車資訊</p>
+								<p className="list">沿路路邊停車格</p>
+							</div>
 						</div>
 					</div>
 				</div>
