@@ -326,7 +326,7 @@ var App = React.createClass({
 								<span className="spire-map"></span>
 							</div>
 							<div className="list-area">
-								<p className="list"><a href="https://www.google.com.tw/maps/place/Section+1,+Songzhu+Rd,+Beitun+District,+Taichung+City,+406/@24.1822959,120.7149144,17z/data=!3m1!4b1!4m2!3m1!1s0x3469182101bb80db:0xabcc34d69ad86a35" target="_blank">台中市北屯區松竹路一段 37 號</a></p>
+								<p className="list"><a href="https://goo.gl/maps/odf3t" target="_blank">台中市北屯區松竹路一段 37 號</a></p>
 								<p className="list">禧樹花市 04- 2437-0585</p>
 								<p className="list">禧樹景觀 04- 2437-5260</p>
 								<p className="list">Fax : 2437-5267</p>

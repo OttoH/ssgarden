@@ -130,7 +130,7 @@
 
 			.logo {
 				position: absolute;
-				bottom: 128px;
+				bottom: 192px;
 				left: 12px;
 				.logo(126px, 80px, center);
 			}
@@ -432,7 +432,10 @@
 	&.about {
 		display: block;
 		height: 768px;
-		background: url("../data/main/about.jpg") no-repeat;
+		background: linear-gradient(
+     		rgba(0, 0, 0, 0.2),
+      		rgba(0, 0, 0, 0.2)
+    		), url("../data/main/about.jpg") no-repeat;
 		background-position: center;
 		background-size: cover;
 		
@@ -686,12 +689,21 @@
 			@media screen and (max-width: 35.5em) {
 				&.contact {
     				.flex(0, 1, 96%);
+    				overflow-y: hide;
     				
     				.map {
     					width: 360px;
     					
     					.spire-map {
     						width: 360px;
+    					}
+    				}
+    				
+    				.list-area {
+    					margin: 0px;
+    					
+    					.list {
+    						padding-left: 12px;
     					}
     				}
 				}
