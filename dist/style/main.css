@@ -627,6 +627,9 @@ textarea,
   letter-spacing: .2rem;
   word-wrap: break-word;
   color: #eff8ee;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  -o-justify-content: center;
   justify-content: center;
   -webkit-flex-flow: row wrap;
   flex-flow: row wrap;
@@ -639,9 +642,15 @@ textarea,
   flex: 1 1 100%;
 }
 .main-image .sub-image.cover {
+  -webkit-justify-content: flex-end;
+  -moz-justify-content: flex-end;
+  -o-justify-content: flex-end;
   justify-content: flex-end;
 }
 .main-image .sub-image.page-text {
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  -o-justify-content: center;
   justify-content: center;
   text-align: center;
   font-size: 3.2rem;
