@@ -3,17 +3,21 @@ var Fluxxor = require('fluxxor'),
 
 var mainImageStore = Fluxxor.createStore({
 	initialize: function(opt) {
-		this.imgs = opt.imgs;
-		this.selectMainImg = this.imgs[Math.floor(Math.random() * this.imgs.length)];
+		this.news = [];
 
-		this.bindActions();
+		this.bindActions(Constants.GET_NEWS_FROM_FLICKR, this.setCurrentNews);
 
+	},
+	
+	setCurrentNews: function (payload) {
+		if (payload) {
+			this.news = payload.news;
+			this.emit("change");
+		}
 	},
 
 	getState: function() {
-		return {
-			selectMainImg: this.selectMainImg
-		};
+		return this.news;
 	}
 
 });

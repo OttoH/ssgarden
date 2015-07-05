@@ -21,15 +21,12 @@ var SmoothScrollMixin = {
 
   componentDidMount: function() {
     window.addEventListener( 'scroll', this.onScroll );
-    
-    this.win = { width: window.innerWidth, height: window.innerHeight };
-    this.canMoveHeroImage = true;
-    
-    window.addEventListener('mousemove', this.throttle(this.onMove, 100));
-
+  
     this.setupStyles()
     this.updateHeight()
     this.animationLoop()
+    
+    this.getFlux().actions.getNewsFromFlrickr('news');
   },
 
 
@@ -56,11 +53,6 @@ var SmoothScrollMixin = {
     this.state.currentPosition += ~~(this.state.nextPosition - this.state.currentPosition) * this.state.friction
     this.state.scrollPercent    = ~~(this.state.currentPosition / (parseInt($container.parentNode.style.height) - window.innerHeight) * 100)
 
-    /*
-    //TweenLite.set( $container, {
-    //  y: -this.state.currentPosition
-    //})
-    */
     this.animFrame = requestAnimationFrame( this.animationLoop );
   },
 
@@ -70,24 +62,6 @@ var SmoothScrollMixin = {
       where: ''
     })
   },
-  
-  onMove: function (ev) {
-    if(!this.canMoveHeroImage) {
-      return false;
-    }
-    
-		var xVal = (-1/(this.win.height/2)*ev.clientY + 1) / 2,
-				yVal = (1/(this.win.width/2)*ev.clientX - 1) / 2,
-				transX = (20/(this.win.width)*ev.clientX - 10) / 4,
-				transY = (20/(this.win.height)*ev.clientY - 10) / 4,
-				transZ = (100/(this.win.height)*ev.clientY - 50) / 4;
-				
-		var imghero = this.refs.coverEffect.getDOMNode();
-
-		imghero.style.WebkitTransform = 'perspective(1000px) translate3d(' + transX + 'px,' + transY + 'px,' + transZ + 'px) rotate3d(' + xVal + ',' + yVal + ',0,1deg)';
-		imghero.style.transform = 'perspective(1000px) translate3d(' + transX + 'px,' + transY + 'px,' + transZ + 'px) rotate3d(' + xVal + ',' + yVal + ',0,1deg)';
-  },
-  
   
   throttle: function (fn, delay) {
 		var allowSample = true;

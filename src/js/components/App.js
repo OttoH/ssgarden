@@ -26,12 +26,12 @@ var App = React.createClass({
 	    var flux = this.getFlux();
 
 	    return {
-	      	mainImage: flux.store('mainImageStore').getState(),
-	      	subImages: flux.store('subImageStore').getState(),
+	      	news: flux.store('mainImageStore').getState(),
 	      	showCover: false,
 	      	where: '',
 	      	lastWhere: '',
-	      	isOpenHambgr: false
+	      	isOpenHambgr: false,
+	      	currentNews: 0
 	    };
 	},
 	
@@ -46,16 +46,11 @@ var App = React.createClass({
 		    
 		    mGoWhere = true;
 			
-			//cancelAnimationFrame(this.animFrame);
-			
 			this.setState({
 		      nextPosition: e.currentTarget.getAttribute('data-y')
 		    });
 		    
 		    window.scroll(0, e.currentTarget.getAttribute('data-y'));
-		    
-		    //this.animFrame = requestAnimationFrame(this.animationLoop);
-		    
 	},
 	
 	handelNothing: function (e){
@@ -73,18 +68,41 @@ var App = React.createClass({
 			this.transitionTo(link, {});
 			
 		}
-		
-
 	},
 	
 	handleHambgrClick: function (e) {
 		e.preventDefault();
 		this.setState({isOpenHambgr: !this.state.isOpenHambgr});
 	},
+	
+	handleNextNewsClick: function (e) {
+		e.preventDefault();
+		
+		var next = this.state.currentNews + 1;
+		if (next === this.state.news.length) {
+			next = 0;
+		}
+		this.setState({currentNews: next});
+	},
 
 	render: function() {
 		var state = this.state;
 		var mWhere;
+		var newsObj = state.news[state.currentNews] || null;
+		var showNews;
+		
+		if (newsObj) {
+			
+			var imgURL = 'https://farm' + newsObj.farm + '.staticflickr.com/' + newsObj.server + '/' + newsObj.id + '_' + newsObj.secret + '.jpg';
+			var style = {
+				img: {
+					background: 'url(' + imgURL + ')',
+					backgroundSize: 'cover'
+				}
+			}
+			showNews = <div className="news"><span className="news-img" style={style.img}></span><span className="arrow-next" onClick={this.handleNextNewsClick}></span></div>;
+		}
+		
 		
 		var aboutParagraph = WD('headerDesc').map(function (V, I) {
 				return <p key={'headdesc' + I}>{V}</p>;
@@ -171,9 +189,10 @@ var App = React.createClass({
 				</div>
 				<div className="scroll-container" ref="scrollContainer">
 				<div className="main-image cover">
-					<div className="coverBakc" ref="coverEffect" />
-					<span className="title"></span>
-					<span className="copy-right">本網站刊出之內容、圖片之著作權，屬於禧樹景觀所有，未經本公司同意或授權，任何人不得隨意轉載、散佈、引用。</span>					
+					<div className="title-div">
+						<div className="title"></div>
+						{showNews}
+					</div>
 				</div>
 				<div className="main-image about" id='#about'>
 					<div className={cns('sub-image', 'page-text')}>

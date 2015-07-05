@@ -467,7 +467,7 @@ textarea,
 }
 .main-image.cover {
   display: block;
-  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("../data/main/main1.jpg") no-repeat;
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("../data/main/main1.jpg") no-repeat;
   background-position: center;
   background-size: cover;
   -webkit-transform: perspective(1000px) translate3d(0px, 0px, 0px) rotate3d(1, 1, 1, 0deg);
@@ -486,10 +486,14 @@ textarea,
   width: 100%;
   height: 768px;
 }
-.main-image .title {
+.main-image .title-div {
+  display: block;
   position: relative;
-  top: 360px;
-  right: 46px;
+  top: 200px;
+}
+.main-image .title-div .title {
+  position: absolute;
+  top: 0px;
   display: inline-block;
   background-image: url('../data/main/silverspire-white.png');
   background-size: contain;
@@ -497,11 +501,59 @@ textarea,
   background-position: center;
   width: 100%;
   height: 86px;
-  background-position: 92%;
+  background-position: 100%;
   font-size: 1.6rem;
   padding: 12px 0;
   text-shadow: 0 2px 3px rgba(197, 203, 199, 0.8);
   font-weight: lighter;
+}
+.main-image .title-div .news {
+  display: block;
+  position: absolute;
+  top: 120px;
+  right: 0px;
+  width: 420px;
+  /*padding: 12px 0;*/
+  background: #fff;
+  background: -webkit-gradient(linear, center top, center bottom, from(rgba(255, 255, 255, 0.7)), to(rgba(255, 255, 255, 0)));
+  background: -webkit-linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0));
+  box-shadow: 0px 2px 12px 1px #a2a2a2;
+  -webkit-box-shadow: 0px 2px 12px 1px #a2a2a2;
+  -moz-box-shadow: 0px 2px 12px 1px #a2a2a2;
+  -o-box-shadow: 0px 2px 12px 1px #a2a2a2;
+}
+.main-image .title-div .news .news-img {
+  display: block;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  width: 100%;
+  height: 280px;
+}
+.main-image .title-div .news .arrow-next {
+  display: block;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  cursor: pointer;
+  min-height: 280px;
+  min-width: 26px;
+  background: rgba(232, 234, 236, 0.6);
+}
+.main-image .title-div .news .arrow-next:before {
+  display: inline-block;
+  position: relative;
+  top: 126px;
+  right: 3px;
+  width: 18px;
+  height: 18px;
+  content: ' ';
+  border-left: 1px solid #3d3d3d;
+  border-top: 1px solid #3d3d3d;
+  transform: rotate(128deg);
+  -webkit-transform: rotate(136deg);
+  -moz-transform: rotate(136deg);
+  -o-transform: rotate(136deg);
 }
 .main-image .copy-right {
   position: relative;
@@ -743,7 +795,7 @@ textarea,
   text-align: left;
 }
 .main-image .sub-image .sub-content.contact .list-area a {
-  color: #f2f2f2;
+  color: #a2a2a2;
   text-decoration: underline;
 }
 @media screen and (max-width: 35.5em) {
@@ -813,7 +865,7 @@ textarea,
 }
 .sub-images .sub-img-block {
   margin: 6px 2px;
-  background-color: #f2f2f2;
+  background-color: #a2a2a2;
 }
 .sub-images .sub-img-block .sub-img-title {
   font-size: 1.6rem;
@@ -898,7 +950,7 @@ textarea,
   display: block;
   padding: 6px 0;
   z-index: 10;
-  border-bottom: 1px solid #f2f2f2;
+  border-bottom: 1px solid #a2a2a2;
 }
 .app-contain .selector ul {
   padding: 0;

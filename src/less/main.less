@@ -378,8 +378,8 @@
 	&.cover {
 		display: block;
 		background: linear-gradient(
-     		rgba(0, 0, 0, 0.4),
-      		rgba(0, 0, 0, 0.4)
+     		rgba(0, 0, 0, 0.3),
+      		rgba(0, 0, 0, 0.3)
     		), url("../data/main/main1.jpg") no-repeat;
 		background-position: center;
 		background-size: cover;
@@ -401,18 +401,76 @@
 		height: 768px;
 	}
 	
-	.title {
+	.title-div {
+		display: block;
 		position: relative;
-		top: 360px;
-		right: 46px;
-		.logo(100%, 86px);
-		background-position: 92%;
-		font-size: @font_n;
-		padding: 12px 0;
-		text-shadow: 0 2px 3px rgba(197, 203, 199, 0.8);
-		font-weight: lighter;
+		top: 200px;
+			
+		.title {
+			position: absolute;
+			top: 0px;
+			.logo(100%, 86px);
+			background-position: 100%;
+			font-size: @font_n;
+			padding: 12px 0;
+			text-shadow: 0 2px 3px rgba(197, 203, 199, 0.8);
+			font-weight: lighter;
+		}
 		
+		.news {
+			display: block;
+			position: absolute;
+			top: 120px;
+			right: 0px;
+			width: 420px;
+			/*padding: 12px 0;*/
+			background: #fff;
+			background: -webkit-gradient(linear, center top, center bottom, from(rgba(255, 255, 255, 0.7)), to(rgba(255, 255, 255, 0)));
+            background: -webkit-linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0));
+            
+            box-shadow: 0px 2px 12px 1px @sub-img-title-bg;
+			-webkit-box-shadow: 0px 2px 12px 1px @sub-img-title-bg;
+			-moz-box-shadow: 0px 2px 12px 1px @sub-img-title-bg;
+			-o-box-shadow: 0px 2px 12px 1px @sub-img-title-bg;
+            
+            .news-img {
+            	display: block;
+            	background-repeat: no-repeat;
+				background-position: center;
+				background-size: cover;
+				width: 100%;
+				height: 280px;
+            }
+            
+            .arrow-next {
+				display: block;
+				position: absolute;
+				top: 0px;
+				right: 0px;
+				cursor: pointer;
+				min-height: 280px;
+				min-width: 26px;
+				background: rgba(232, 234, 236, 0.6);
+
+				&:before {
+					display: inline-block;
+					position: relative;
+					top: 126px;
+					right: 3px;
+					width: 18px;
+					height: 18px;
+					content: ' ';
+					border-left: 1px solid @header_title;
+					border-top: 1px solid @header_title;
+					transform: rotate(128deg);
+					-webkit-transform: rotate(136deg);
+					-moz-transform: rotate(136deg);
+					-o-transform: rotate(136deg);
+				}
+			}
+		}
 	}
+	
 
 	.copy-right {
 		position: relative;

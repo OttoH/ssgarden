@@ -45625,6 +45625,29 @@ module.exports = {
 	open_contact: function () {
 		this.dispatch(Constants.OPEN_CONTACT);
 	},
+	
+	getNewsFromFlrickr: function (link) {
+		var url = 'https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&'
+					+ 'api_key=' + flickr.apiKey + '&'
+					+ 'photoset_id=' + flickr.sets[link] + '&'
+					+ 'format=json&nojsoncallback=1';
+		$.ajax({
+	      url: url,
+	      dataType: 'json',
+	      cache: true,
+	      success: function(data) {
+	      	var payload = {};
+
+	      	payload[link] = data.photoset.photo;
+	      	console.log(data.photoset.photo);
+	      	this.dispatch(Constants.GET_NEWS_FROM_FLICKR, payload);
+	        
+	      }.bind(this),
+	      error: function(xhr, status, err) {
+	        console.error('flickr', status, err.toString());
+	      }.bind(this)
+	    });
+	},
 
 	getSubFromFlickr: function (link) {
 		var url = 'https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&'
@@ -45728,12 +45751,12 @@ var App = React.createClass({displayName: "App",
 	    var flux = this.getFlux();
 
 	    return {
-	      	mainImage: flux.store('mainImageStore').getState(),
-	      	subImages: flux.store('subImageStore').getState(),
+	      	news: flux.store('mainImageStore').getState(),
 	      	showCover: false,
 	      	where: '',
 	      	lastWhere: '',
-	      	isOpenHambgr: false
+	      	isOpenHambgr: false,
+	      	currentNews: 0
 	    };
 	},
 	
@@ -45748,16 +45771,11 @@ var App = React.createClass({displayName: "App",
 		    
 		    mGoWhere = true;
 			
-			//cancelAnimationFrame(this.animFrame);
-			
 			this.setState({
 		      nextPosition: e.currentTarget.getAttribute('data-y')
 		    });
 		    
 		    window.scroll(0, e.currentTarget.getAttribute('data-y'));
-		    
-		    //this.animFrame = requestAnimationFrame(this.animationLoop);
-		    
 	},
 	
 	handelNothing: function (e){
@@ -45775,18 +45793,41 @@ var App = React.createClass({displayName: "App",
 			this.transitionTo(link, {});
 			
 		}
-		
-
 	},
 	
 	handleHambgrClick: function (e) {
 		e.preventDefault();
 		this.setState({isOpenHambgr: !this.state.isOpenHambgr});
 	},
+	
+	handleNextNewsClick: function (e) {
+		e.preventDefault();
+		
+		var next = this.state.currentNews + 1;
+		if (next === this.state.news.length) {
+			next = 0;
+		}
+		this.setState({currentNews: next});
+	},
 
 	render: function() {
 		var state = this.state;
 		var mWhere;
+		var newsObj = state.news[state.currentNews] || null;
+		var showNews;
+		
+		if (newsObj) {
+			
+			var imgURL = 'https://farm' + newsObj.farm + '.staticflickr.com/' + newsObj.server + '/' + newsObj.id + '_' + newsObj.secret + '.jpg';
+			var style = {
+				img: {
+					background: 'url(' + imgURL + ')',
+					backgroundSize: 'cover'
+				}
+			}
+			showNews = React.createElement("div", {className: "news"}, React.createElement("span", {className: "news-img", style: style.img}), React.createElement("span", {className: "arrow-next", onClick: this.handleNextNewsClick}));
+		}
+		
 		
 		var aboutParagraph = WD('headerDesc').map(function (V, I) {
 				return React.createElement("p", {key: 'headdesc' + I}, V);
@@ -45873,9 +45914,10 @@ var App = React.createClass({displayName: "App",
 				), 
 				React.createElement("div", {className: "scroll-container", ref: "scrollContainer"}, 
 				React.createElement("div", {className: "main-image cover"}, 
-					React.createElement("div", {className: "coverBakc", ref: "coverEffect"}), 
-					React.createElement("span", {className: "title"}), 
-					React.createElement("span", {className: "copy-right"}, "本網站刊出之內容、圖片之著作權，屬於禧樹景觀所有，未經本公司同意或授權，任何人不得隨意轉載、散佈、引用。")					
+					React.createElement("div", {className: "title-div"}, 
+						React.createElement("div", {className: "title"}), 
+						showNews
+					)
 				), 
 				React.createElement("div", {className: "main-image about", id: "#about"}, 
 					React.createElement("div", {className: cns('sub-image', 'page-text')}, 
@@ -46506,6 +46548,7 @@ module.exports = {
 	OPEN_ABOUT: 'OPEN_ABOUT',
 	OPEN_CONTACT: 'OPEN_CONTACT',
 	GET_SUB_FROM_FLICKR: 'GET_SUB_FROM_FLICKR',
+	GET_NEWS_FROM_FLICKR: 'GET_NEWS_FROM_FLICKR',
 	SET_CURRENT_WORK: 'SET_CURRENT_WORK',
 	SET_PROJECTS: 'SET_PROJECTS',
 	ROUTE: {
@@ -46592,15 +46635,12 @@ var SmoothScrollMixin = {
 
   componentDidMount: function() {
     window.addEventListener( 'scroll', this.onScroll );
-    
-    this.win = { width: window.innerWidth, height: window.innerHeight };
-    this.canMoveHeroImage = true;
-    
-    window.addEventListener('mousemove', this.throttle(this.onMove, 100));
-
+  
     this.setupStyles()
     this.updateHeight()
     this.animationLoop()
+    
+    this.getFlux().actions.getNewsFromFlrickr('news');
   },
 
 
@@ -46627,11 +46667,6 @@ var SmoothScrollMixin = {
     this.state.currentPosition += ~~(this.state.nextPosition - this.state.currentPosition) * this.state.friction
     this.state.scrollPercent    = ~~(this.state.currentPosition / (parseInt($container.parentNode.style.height) - window.innerHeight) * 100)
 
-    /*
-    //TweenLite.set( $container, {
-    //  y: -this.state.currentPosition
-    //})
-    */
     this.animFrame = requestAnimationFrame( this.animationLoop );
   },
 
@@ -46641,24 +46676,6 @@ var SmoothScrollMixin = {
       where: ''
     })
   },
-  
-  onMove: function (ev) {
-    if(!this.canMoveHeroImage) {
-      return false;
-    }
-    
-		var xVal = (-1/(this.win.height/2)*ev.clientY + 1) / 2,
-				yVal = (1/(this.win.width/2)*ev.clientX - 1) / 2,
-				transX = (20/(this.win.width)*ev.clientX - 10) / 4,
-				transY = (20/(this.win.height)*ev.clientY - 10) / 4,
-				transZ = (100/(this.win.height)*ev.clientY - 50) / 4;
-				
-		var imghero = this.refs.coverEffect.getDOMNode();
-
-		imghero.style.WebkitTransform = 'perspective(1000px) translate3d(' + transX + 'px,' + transY + 'px,' + transZ + 'px) rotate3d(' + xVal + ',' + yVal + ',0,1deg)';
-		imghero.style.transform = 'perspective(1000px) translate3d(' + transX + 'px,' + transY + 'px,' + transZ + 'px) rotate3d(' + xVal + ',' + yVal + ',0,1deg)';
-  },
-  
   
   throttle: function (fn, delay) {
 		var allowSample = true;
@@ -46768,17 +46785,21 @@ var Fluxxor = require('fluxxor'),
 
 var mainImageStore = Fluxxor.createStore({
 	initialize: function(opt) {
-		this.imgs = opt.imgs;
-		this.selectMainImg = this.imgs[Math.floor(Math.random() * this.imgs.length)];
+		this.news = [];
 
-		this.bindActions();
+		this.bindActions(Constants.GET_NEWS_FROM_FLICKR, this.setCurrentNews);
 
+	},
+	
+	setCurrentNews: function (payload) {
+		if (payload) {
+			this.news = payload.news;
+			this.emit("change");
+		}
 	},
 
 	getState: function() {
-		return {
-			selectMainImg: this.selectMainImg
-		};
+		return this.news;
 	}
 
 });
@@ -46933,7 +46954,8 @@ var webData ={
 				projects: '72157651068343325,72157651294111842,72157650896421478,72157648981475873,72157651068433615',
 				works: '72157651294111842',
 				resource: '72157651294111842',
-				kits: '72157650968209518'
+				kits: '72157650968209518',
+				news: '72157651068343325'
 			}
 
 		}
