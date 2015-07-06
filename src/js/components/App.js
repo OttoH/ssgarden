@@ -78,31 +78,37 @@ var App = React.createClass({
 	handleNextNewsClick: function (e) {
 		e.preventDefault();
 		
-		var next = this.state.currentNews + 1;
-		if (next === this.state.news.length) {
-			next = 0;
-		}
-		this.setState({currentNews: next});
+		var link = e.currentTarget.getAttribute('href') || 0;
+
+		this.setState({currentNews: link});
 	},
 
 	render: function() {
 		var state = this.state;
 		var mWhere;
 		var newsObj = state.news[state.currentNews] || null;
-		var showNews;
+		var dots = [];
 		
 		if (newsObj) {
-			
-			var imgURL = 'https://farm' + newsObj.farm + '.staticflickr.com/' + newsObj.server + '/' + newsObj.id + '_' + newsObj.secret + '.jpg';
-			var style = {
-				img: {
-					background: 'url(' + imgURL + ')',
-					backgroundSize: 'cover'
-				}
-			}
-			showNews = <div className="news"><span className="news-img" style={style.img}></span><span className="arrow-next" onClick={this.handleNextNewsClick}></span></div>;
+			var imgURL = 'https://farm' + newsObj.farm + '.staticflickr.com/' + newsObj.server + '/' + newsObj.id + '_' + newsObj.secret + '_b.jpg';
+			//showNews = <div className="news"><span className="news-img" style={style.img}></span><span className="arrow-next" onClick={this.handleNextNewsClick}></span></div>;
+		} else {
+			var imgURL = 'data/main/loading.png';
 		}
 		
+		var style = {
+			img: {
+				backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.3),rgba(0, 0, 0, 0.3)), url(' + imgURL + ')',
+				backgroundSize: 'cover',
+				backgroundRepeat: 'no-repeat',
+				backgroundPosition: 'center',
+				width: '100%'
+			}
+		}
+		
+		this.state.news.forEach(function(V, I) {
+			dots.push(<a className={cns('dots', (Number(state.currentNews) === I) && 'selected')} href={I} onClick={this.handleNextNewsClick} key={"dots" + I}></a>);
+		}.bind(this));
 		
 		var aboutParagraph = WD('headerDesc').map(function (V, I) {
 				return <p key={'headdesc' + I}>{V}</p>;
@@ -188,10 +194,12 @@ var App = React.createClass({
 			</div>
 				</div>
 				<div className="scroll-container" ref="scrollContainer">
-				<div className="main-image cover">
+				<div className="main-image cover" style={style.img}>
 					<div className="title-div">
 						<div className="title"></div>
-						{showNews}
+						<div className="dots-row">
+							{dots}
+						</div>
 					</div>
 				</div>
 				<div className="main-image about" id='#about'>
