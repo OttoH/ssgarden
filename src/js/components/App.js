@@ -98,7 +98,7 @@ var App = React.createClass({
 		
 		var style = {
 			img: {
-				backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.3),rgba(0, 0, 0, 0.3)), url(' + imgURL + ')',
+				backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.1),rgba(0, 0, 0, 0.1)), url(' + imgURL + ')',
 				backgroundSize: 'cover',
 				backgroundRepeat: 'no-repeat',
 				backgroundPosition: 'center',
@@ -196,7 +196,7 @@ var App = React.createClass({
 				<div className="scroll-container" ref="scrollContainer">
 				<div className="main-image cover" style={style.img}>
 					<div className="title-div">
-						<div className="title"></div>
+						
 						<div className="dots-row">
 							{dots}
 						</div>

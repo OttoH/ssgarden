@@ -143,6 +143,7 @@ textarea,
 }
 .scroll-container {
   width: 100%;
+  background-color: #eff8ee;
 }
 .header-mobile {
   position: fixed;
@@ -238,14 +239,6 @@ textarea,
 .head-wrap .header .menu {
   display: block;
   margin: 36px 0;
-}
-.head-wrap .header .menu.shadow {
-  /*
-				box-shadow: 0px 2px 12px 2px @sub-img-title-bg;
-				-webkit-box-shadow: 0px 2px 12px 2px @sub-img-title-bg;
-				-moz-box-shadow: 0px 2px 12px 2px @sub-img-title-bg;
-				-o-box-shadow: 0px 2px 12px 2px @sub-img-title-bg;
-				*/
 }
 .head-wrap .header .menu.item {
   max-height: 62px;
@@ -481,12 +474,27 @@ textarea,
 .main-image.cover {
   display: block;
   width: 100%;
-  height: 768px;
+  height: calc(100vh);
+  perspective: 1rem;
+  max-height: 768px;
 }
 .main-image .title-div {
-  display: block;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
   position: relative;
-  top: 286px;
+  top: calc(92vh);
+  height: 30px;
+  flex-direction: column;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  -o-justify-content: center;
+  justify-content: center;
+  -webkit-flex-flow: row wrap;
+  flex-flow: row wrap;
+  align-items: center;
 }
 .main-image .title-div .title {
   position: absolute;
@@ -505,10 +513,12 @@ textarea,
   font-weight: lighter;
 }
 .main-image .title-div .dots-row {
-  display: block;
-  position: absolute;
-  top: 136px;
-  right: 36px;
+  /*
+			display: inline-block;
+			position: absolute;
+			top: 2px;
+			right: 36px;
+			*/
 }
 .main-image .title-div .dots-row .dots {
   display: inline-block;
