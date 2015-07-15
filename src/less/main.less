@@ -395,8 +395,8 @@
   		display: -webkit-flex;
   		display: flex;
   		position: relative;
-		top: calc(92vh);
-		height: 30px;
+		top: calc(88vh);
+		min-height: 30px;
   		flex-direction: column;
 		-webkit-justify-content: center;
 		-moz-justify-content: center;
@@ -405,7 +405,7 @@
 		-webkit-flex-flow: row wrap;
   		flex-flow: row wrap;
 		align-items: center;
-			
+		
 		.title {
 			position: absolute;
 			top: 0px;
@@ -417,13 +417,18 @@
 			font-weight: lighter;
 		}
 		
+		
+		.title-row{
+			display: block;
+			width: 100%;
+			text-align: center;
+			color: @white;
+			font-size: @font_xxl;
+			line-height: 2;
+			text-shadow: 0 2px 3px rgba(12, 12, 12, 0.8);
+		}
+		
 		.dots-row {
-			/*
-			display: inline-block;
-			position: absolute;
-			top: 2px;
-			right: 36px;
-			*/
 			
 			.dots {
 				display: inline-block;

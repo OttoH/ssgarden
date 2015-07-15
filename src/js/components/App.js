@@ -196,7 +196,9 @@ var App = React.createClass({
 				<div className="scroll-container" ref="scrollContainer">
 				<div className="main-image cover" style={style.img}>
 					<div className="title-div">
-						
+						<div className="title-row">
+							<span>{newsObj ? newsObj.title : ""}</span>
+						</div>
 						<div className="dots-row">
 							{dots}
 						</div>

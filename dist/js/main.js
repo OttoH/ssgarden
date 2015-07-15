@@ -45639,7 +45639,7 @@ module.exports = {
 	      	var payload = {};
 
 	      	payload[link] = data.photoset.photo;
-	      	//console.log(data.photoset.photo);
+	      	console.log(data.photoset.photo);
 	      	this.dispatch(Constants.GET_NEWS_FROM_FLICKR, payload);
 	        
 	      }.bind(this),
@@ -45921,7 +45921,9 @@ var App = React.createClass({displayName: "App",
 				React.createElement("div", {className: "scroll-container", ref: "scrollContainer"}, 
 				React.createElement("div", {className: "main-image cover", style: style.img}, 
 					React.createElement("div", {className: "title-div"}, 
-						
+						React.createElement("div", {className: "title-row"}, 
+							React.createElement("span", null, newsObj ? newsObj.title : "")
+						), 
 						React.createElement("div", {className: "dots-row"}, 
 							dots
 						)
@@ -46963,7 +46965,7 @@ var webData ={
 				works: '72157651294111842',
 				resource: '72157651294111842',
 				kits: '72157650968209518',
-				news: '72157651068343325'
+				news: '72157655427283949'
 			}
 
 		}

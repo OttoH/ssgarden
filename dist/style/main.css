@@ -485,8 +485,8 @@ textarea,
   display: -webkit-flex;
   display: flex;
   position: relative;
-  top: calc(92vh);
-  height: 30px;
+  top: calc(88vh);
+  min-height: 30px;
   flex-direction: column;
   -webkit-justify-content: center;
   -moz-justify-content: center;
@@ -512,13 +512,14 @@ textarea,
   text-shadow: 0 2px 3px rgba(197, 203, 199, 0.8);
   font-weight: lighter;
 }
-.main-image .title-div .dots-row {
-  /*
-			display: inline-block;
-			position: absolute;
-			top: 2px;
-			right: 36px;
-			*/
+.main-image .title-div .title-row {
+  display: block;
+  width: 100%;
+  text-align: center;
+  color: #eff8ee;
+  font-size: 2.6rem;
+  line-height: 2;
+  text-shadow: 0 2px 3px rgba(12, 12, 12, 0.8);
 }
 .main-image .title-div .dots-row .dots {
   display: inline-block;
