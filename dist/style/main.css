@@ -476,7 +476,6 @@ textarea,
   width: 100%;
   height: calc(100vh);
   perspective: 1rem;
-  max-height: 768px;
 }
 .main-image .title-div {
   display: -webkit-box;
