@@ -1,5 +1,5 @@
 var React = require('react');
-var Fluxxor = require('Fluxxor'),
+var Fluxxor = require('fluxxor'),
     FluxMixin = Fluxxor.FluxMixin(React),
     StoreWatchMixin = Fluxxor.StoreWatchMixin;
 var cns = require('../lib/className');
@@ -13,6 +13,10 @@ var Header = React.createClass({
 	    	headerContent: flux.store('headerStore').getState()
 	    };
 	},
+
+	componentWillReceiveProps: function(nextProps) {
+	    this.setState(this.getStateFromFlux());
+	  },
 
 	handleAboutClick: function (e) {
 		e.preventDefault();
@@ -28,16 +32,29 @@ var Header = React.createClass({
 
 		return (
 			<div className="header">
-				<div className="menu pure-menu pure-menu-open pure-menu-horizontal">
-				<a href="#" className="logo pure-menu-heading"><span className="title"></span></a>
-				<ul>
-					<li><a href="#" className="nav-item" onClick={this.handleAboutClick}><span>{'關於禧樹 about'}</span></a></li>
-					<li><a href="#" className="nav-item" onClick={this.handleContactClick}><span>{'聯絡我們 contact'}</span></a></li>
-				</ul>
+				<div className="menu shadow">
+					
+					<div className="side-section">
+						<a href="#about" className={cns('nav-item', (this.state.headerContent.openAbout) && 'selected')}><span>{'About'}</span></a>
+						<a href="#" className={cns('nav-item', (this.state.headerContent.openAbout) && 'selected')} onClick={this.handleAboutClick}><span>{'多肉精靈'}</span></a>
+						<a href="#" className={cns('nav-item', (this.state.headerContent.openAbout) && 'selected')} onClick={this.handleAboutClick}><span>{'氣根生'}</span></a>
+						<a href="#" className={cns('nav-item', (this.state.headerContent.openAbout) && 'selected')} onClick={this.handleAboutClick}><span>{'芳香生活'}</span></a>
+						<a href="#" className={cns('nav-item', (this.state.headerContent.openAbout) && 'selected')} onClick={this.handleAboutClick}><span>{'精緻組盆'}</span></a>
+						<a href="#" className={cns('nav-item', (this.state.headerContent.openAbout) && 'selected')} onClick={this.handleAboutClick}><span>{'品味生活'}</span></a>
+						<a href="#" className={cns('nav-item', (this.state.headerContent.openAbout) && 'selected')} onClick={this.handleAboutClick}><span>{'季節草花'}</span></a>
+						<a href="#" className={cns('nav-item', (this.state.headerContent.openAbout) && 'selected')} onClick={this.handleAboutClick}><span>{'工程'}</span></a>
+						<a href="#" className={cns('nav-item', (this.state.headerContent.openAbout) && 'selected')} onClick={this.handleAboutClick}><span>{'水景'}</span></a>
+						<a href="#" className={cns('nav-item', (this.state.headerContent.openAbout) && 'selected')} onClick={this.handleAboutClick}><span>{'空中花園'}</span></a>
+						<a href="#" className={cns('nav-item', (this.state.headerContent.openAbout) && 'selected')} onClick={this.handleAboutClick}><span>{'庭園景觀'}</span></a>
+						<a href="#" className={cns('nav-item', (this.state.headerContent.openAbout) && 'selected')} onClick={this.handleAboutClick}><span>{'露台景觀'}</span></a>
+						<a href="#" className={cns('nav-item', (this.state.headerContent.openAbout) && 'selected')} onClick={this.handleAboutClick}><span>{'花市'}</span></a>
+						<a href="#" className={cns('nav-item', (this.state.headerContent.openContact) && 'selected')} onClick={this.handleContactClick}><span>{'聯絡我們'}</span></a>
+					</div>
+					<div><a href="#" className="logo"></a></div>
 				</div>
 				<div className={cns('about-block', (!this.state.headerContent.openAbout) && 'hidden')}>
 					<div className="about-content">
-						<div className="desc-up">{this.state.headerContent.descUp}</div>
+						<div className="desc-up"><span dangerouslySetInnerHTML={{__html: this.state.headerContent.descUp}} /></div>
 						<div className="desc-down">{this.state.headerContent.descDown}</div>
 					</div>
 				</div>

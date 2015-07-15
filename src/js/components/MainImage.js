@@ -24,7 +24,12 @@ var MainImage = React.createClass({
 				);
 		} else {
 			content.push(
-				<div className="image pure-u-1" style={style.img} key="main-image"></div>
+				<div className="image pure-u-1" style={style.img} key="main-image">
+					<div className="sub-image">
+						<p className="title">最新消息。news</p>
+						<p className="content">網站完工中...!</p>
+					</div>
+				</div>
 				);
 		}
 
