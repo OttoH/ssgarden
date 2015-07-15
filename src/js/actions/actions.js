@@ -26,7 +26,7 @@ module.exports = {
 	      	var payload = {};
 
 	      	payload[link] = data.photoset.photo;
-	      	console.log(data.photoset.photo);
+	      	//console.log(data.photoset.photo);
 	      	this.dispatch(Constants.GET_NEWS_FROM_FLICKR, payload);
 	        
 	      }.bind(this),
