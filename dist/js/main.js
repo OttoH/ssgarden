@@ -45807,6 +45807,16 @@ var App = React.createClass({displayName: "App",
 
 		this.setState({currentNews: link});
 	},
+	
+	handleAutoPlayNews: function () {
+		var now = parseInt(this.state.currentNews);
+		if (now < this.state.news.length - 1 ) {
+			now ++;
+			this.setState({currentNews: now.toString()});
+		} else {
+			this.setState({currentNews: 0});
+		}
+	},
 
 	render: function() {
 		var state = this.state;
@@ -45899,18 +45909,19 @@ var App = React.createClass({displayName: "App",
 				React.createElement("div", {className: "menu shadow"}, 
 					React.createElement("div", {className: "side-section"}, 
 						React.createElement("a", {href: "#", "data-y": "770", "data-where": "about", className: cns('nav-item', (mWhere === 'about' || state.where === 'about') && 'located'), onClick: this.handleScrollTo}, React.createElement("span", {"data-y": "770"}, 'About')), 
+						React.createElement("a", {href: "projects", className: cns('nav-item', 'located'), onClick: this.handleSubImage}, React.createElement("span", null, '工程')), 
+						React.createElement("a", {href: "kits", "data-where": "market", className: cns('nav-item', 'located'), onClick: this.handleSubImage}, React.createElement("span", {"data-y": "9216"}, '花市')), 
 						React.createElement("a", {href: "#", "data-where": "meat", className: cns('nav-item', (mWhere === 'meat' || state.where === 'meat') && 'located'), "data-y": "1538", onClick: this.handleScrollTo}, React.createElement("span", {"data-y": "1538"}, '多肉精靈')), 
 						React.createElement("a", {href: "#", "data-where": "air", className: cns('nav-item', (mWhere === 'air' || state.where === 'air') && 'located'), "data-y": "2311", onClick: this.handleScrollTo}, React.createElement("span", {"data-y": "2300"}, '氣根生')), 
 						React.createElement("a", {href: "#", "data-where": "flover", className: cns('nav-item', (mWhere === 'flover' || state.where === 'flover') && 'located'), "data-y": "3074", onClick: this.handleScrollTo}, React.createElement("span", {"data-y": "3074"}, '芳香生活')), 
 						React.createElement("a", {href: "#", "data-where": "suit", className: cns('nav-item', (mWhere === 'suit' || state.where === 'suit') && 'located'), "data-y": "3840", onClick: this.handleScrollTo}, React.createElement("span", {"data-y": "3840"}, '精緻組盆')), 
 						React.createElement("a", {href: "#", "data-where": "life", className: cns('nav-item', (mWhere === 'life' || state.where === 'life') && 'located'), "data-y": "4607", onClick: this.handleScrollTo}, React.createElement("span", {"data-y": "4607"}, '品味生活')), 
-						React.createElement("a", {href: "#", "data-where": "season", className: cns('nav-item', (mWhere === 'season' || state.where === 'season') && 'located'), "data-y": "5377", onClick: this.handleScrollTo}, React.createElement("span", {"data-y": "5377"}, '季節草花')), 
-						React.createElement("a", {href: "projects", className: cns('nav-item'), onClick: this.handleSubImage}, React.createElement("span", null, '工程')), 
+						React.createElement("a", {href: "#", "data-where": "season", className: cns('nav-item', (mWhere === 'season' || state.where === 'season') && 'located'), "data-y": "5377", onClick: this.handleScrollTo}, React.createElement("span", {"data-y": "5377"}, '季節草花')), 					
 						React.createElement("a", {href: "#", "data-where": "water", className: cns('nav-item', 'indent', (mWhere === 'water' || state.where === 'water') && 'located'), "data-y": "6143", onClick: this.handleScrollTo}, React.createElement("span", {"data-y": "6143"}, '水景')), 
 						React.createElement("a", {href: "#", "data-where": "float", className: cns('nav-item', 'indent', (mWhere === 'float' || state.where === 'float') && 'located'), "data-y": "6920", onClick: this.handleScrollTo}, React.createElement("span", {"data-y": "6920"}, '空中花園')), 
 						React.createElement("a", {href: "#", "data-where": "garden-view", className: cns('nav-item', 'indent', (mWhere === 'garden-view' || state.where === 'garden-view') && 'located'), "data-y": "7680", onClick: this.handleScrollTo}, React.createElement("span", {"data-y": "7680"}, '庭園景觀')), 
 						React.createElement("a", {href: "#", "data-where": "balcony", className: cns('nav-item', 'indent', (mWhere === 'balcony' || state.where === 'balcony') && 'located'), "data-y": "8450", onClick: this.handleScrollTo}, React.createElement("span", {"data-y": "8450"}, '露台景觀')), 
-						React.createElement("a", {href: "kits", "data-where": "market", className: cns('nav-item', (mWhere === 'market' || state.where === 'market') && 'located'), "data-y": "9216", onClick: this.handleSubImage}, React.createElement("span", {"data-y": "9216"}, '花市')), 
+						
 						React.createElement("a", {href: "#", "data-where": "contact", className: cns('nav-item', (mWhere === 'contact' || state.where === 'contact') && 'located'), "data-y": "9984", onClick: this.handleScrollTo}, React.createElement("span", {"data-y": "9984"}, '聯絡我們'))
 					), 
 					React.createElement("div", null, React.createElement("a", {href: "https://www.facebook.com/shishumarket?fref=ts", target: "_blank", className: "fb"})), 
@@ -46650,6 +46661,8 @@ var SmoothScrollMixin = {
     this.updateHeight()
     this.animationLoop()
     
+    this.autoPlayIntetval = window.setInterval(this.handleAutoPlayNews, 5000);
+    
     this.getFlux().actions.getNewsFromFlrickr('news');
   },
 
@@ -46701,6 +46714,7 @@ var SmoothScrollMixin = {
   
   componentWillUnmount: function() {
         cancelAnimationFrame(this.animFrame);
+        clearInterval(this.autoPlayIntetval);
         window.removeEventListener('scroll', this.onScroll, false);
     },
 }
@@ -46961,7 +46975,7 @@ var webData ={
 			apiKey: '8bf6cf083c6449eba4c5cb2b1948e259',
 			secret: 'd1f64fa70f3dd7c0',
 			sets: {
-				projects: '72157651068343325,72157651294111842,72157650896421478,72157648981475873,72157651068433615',
+				projects: '72157649876058024,72157651294111842,72157650896421478,72157648981475873,72157651068433615',
 				works: '72157651294111842',
 				resource: '72157651294111842',
 				kits: '72157650968209518',
