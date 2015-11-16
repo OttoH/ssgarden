@@ -83,6 +83,16 @@ var App = React.createClass({
 		this.setState({currentNews: link});
 	},
 
+	handleAutoPlayNews: function () {
+		var now = parseInt(this.state.currentNews);
+		if (now < this.state.news.length - 1 ) {
+			now ++;
+			this.setState({currentNews: now.toString()});
+		} else {
+			this.setState({currentNews: 0});
+		}
+	},
+
 	render: function() {
 		var state = this.state;
 		var mWhere;
@@ -174,18 +184,19 @@ var App = React.createClass({
 				<div className="menu shadow">
 					<div className="side-section">
 						<a href="#" data-y="770" data-where="about" className={cns('nav-item', (mWhere === 'about' || state.where === 'about') && 'located')} onClick={this.handleScrollTo}><span data-y="770">{'About'}</span></a>
+						<a href="projects" className={cns('nav-item', 'located')} onClick={this.handleSubImage}><span>{'工程'}</span></a>
+						<a href="kits" data-where="market" className={cns('nav-item', 'located')} onClick={this.handleSubImage}><span data-y="9216">{'花市'}</span></a>
 						<a href="#" data-where="meat" className={cns('nav-item', (mWhere === 'meat' || state.where === 'meat') && 'located')} data-y="1538" onClick={this.handleScrollTo}><span data-y="1538">{'多肉精靈'}</span></a>
 						<a href="#" data-where="air" className={cns('nav-item', (mWhere === 'air' || state.where === 'air') && 'located')} data-y="2311" onClick={this.handleScrollTo}><span data-y="2300">{'氣根生'}</span></a>
 						<a href="#" data-where="flover" className={cns('nav-item', (mWhere === 'flover' || state.where === 'flover') && 'located')} data-y="3074" onClick={this.handleScrollTo}><span data-y="3074">{'芳香生活'}</span></a>
 						<a href="#" data-where="suit" className={cns('nav-item', (mWhere === 'suit' || state.where === 'suit') && 'located')} data-y="3840" onClick={this.handleScrollTo}><span data-y="3840">{'精緻組盆'}</span></a>
 						<a href="#" data-where="life" className={cns('nav-item', (mWhere === 'life' || state.where === 'life') && 'located')} data-y="4607" onClick={this.handleScrollTo}><span data-y="4607">{'品味生活'}</span></a>
-						<a href="#" data-where="season" className={cns('nav-item', (mWhere === 'season' || state.where === 'season') && 'located')} data-y="5377" onClick={this.handleScrollTo}><span data-y="5377">{'季節草花'}</span></a>
-						<a href="projects" className={cns('nav-item')} onClick={this.handleSubImage}><span>{'工程'}</span></a>
+						<a href="#" data-where="season" className={cns('nav-item', (mWhere === 'season' || state.where === 'season') && 'located')} data-y="5377" onClick={this.handleScrollTo}><span data-y="5377">{'季節草花'}</span></a>					
 						<a href="#" data-where="water" className={cns('nav-item', 'indent', (mWhere === 'water' || state.where === 'water') && 'located')} data-y="6143" onClick={this.handleScrollTo}><span data-y="6143">{'水景'}</span></a>
 						<a href="#" data-where="float" className={cns('nav-item', 'indent', (mWhere === 'float' || state.where === 'float') && 'located')} data-y="6920" onClick={this.handleScrollTo}><span data-y="6920">{'空中花園'}</span></a>
 						<a href="#" data-where="garden-view" className={cns('nav-item', 'indent', (mWhere === 'garden-view' || state.where === 'garden-view') && 'located')} data-y="7680" onClick={this.handleScrollTo}><span data-y="7680">{'庭園景觀'}</span></a>
 						<a href="#" data-where="balcony" className={cns('nav-item', 'indent', (mWhere === 'balcony' || state.where === 'balcony') && 'located')} data-y="8450" onClick={this.handleScrollTo}><span data-y="8450">{'露台景觀'}</span></a>
-						<a href="kits" data-where="market" className={cns('nav-item', (mWhere === 'market' || state.where === 'market') && 'located')} data-y="9216" onClick={this.handleSubImage}><span data-y="9216">{'花市'}</span></a>
+						
 						<a href="#" data-where="contact" className={cns('nav-item', (mWhere === 'contact' || state.where === 'contact') && 'located')} data-y="9984" onClick={this.handleScrollTo}><span data-y="9984">{'聯絡我們'}</span></a>
 					</div>
 					<div><a href="https://www.facebook.com/shishumarket?fref=ts" target="_blank" className="fb"></a></div>

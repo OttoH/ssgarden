@@ -26,6 +26,8 @@ var SmoothScrollMixin = {
     this.updateHeight()
     this.animationLoop()
     
+    this.autoPlayIntetval = window.setInterval(this.handleAutoPlayNews, 5000);
+    
     this.getFlux().actions.getNewsFromFlrickr('news');
   },
 
@@ -77,6 +79,7 @@ var SmoothScrollMixin = {
   
   componentWillUnmount: function() {
         cancelAnimationFrame(this.animFrame);
+        clearInterval(this.autoPlayIntetval);
         window.removeEventListener('scroll', this.onScroll, false);
     },
 }
