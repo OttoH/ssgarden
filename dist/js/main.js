@@ -45807,7 +45807,7 @@ var App = React.createClass({displayName: "App",
 
 		this.setState({currentNews: link});
 	},
-	
+
 	handleAutoPlayNews: function () {
 		var now = parseInt(this.state.currentNews);
 		if (now < this.state.news.length - 1 ) {
@@ -46975,11 +46975,11 @@ var webData ={
 			apiKey: '8bf6cf083c6449eba4c5cb2b1948e259',
 			secret: 'd1f64fa70f3dd7c0',
 			sets: {
-				projects: '72157649876058024,72157651294111842,72157650896421478,72157648981475873,72157651068433615',
+				projects: '72157651068433615,72157666773440136',
 				works: '72157651294111842',
 				resource: '72157651294111842',
-				kits: '72157650968209518',
-				news: '72157655427283949'
+				kits: '72157651383135835',
+				news: '72157666730079321'
 			}
 
 		}
